@@ -17,52 +17,120 @@ import com.koreait.dto.MemberDTO;
 		
 		
 		//김성민 회원 가입, 로그인
+		/**
+		 * @author 성민
+		 * @param member : 회원정보를 담고있는 DTO객체
+		 * @return boolean : 회원가입 성공 여부를 TRUE / FALSE
+		 * <p> 회원가입 메서드입니다. 전달받은 회원 정보를 이용하여 회원 등록이 정상적으로 완료하면 TRUE를 반환합니다.
+		 * </p>
+		 */
 		
-		private List<MemberDTO> memberList = new ArrayList<>();
-		
-		//회원가입 메소드
-		
-		public List<MemberDTO> join(MemberDTO memberDTO){
-			System.out.println("아이디 입력 : ");
-			memberDTO.setId(sc.nextLine());
-			for(MemberDTO m : memberList) {
-				if(m.getId().equals(memberDTO.getId())) {
-					return memberList;
-				}
-			}
-			
-		System.out.println("비밀번호 입력 : ");
-		memberDTO.setMemPw(sc.nextLine());
-		System.out.println("이름 입력 : ");
-		memberDTO.setMemName(sc.nextLine());
-		System.out.println("전화번호 입력 : ");
-		memberDTO.setMemPhoneNo(sc.nextLine());
-		System.out.println("이메일 입력 : ");
-		memberDTO.setMemEmail(sc.nextLine());
-		sc.nextLine();
-	    memberList.add(memberDTO);
-	    return memberList;
-		}
+		//회원 가입 기능을 담당하는 join메소드입니다.
+		// 매개변수로 DTO객체를 받아 모든 정보를 전달 받습니다
+		// 반환타입은 BOOLEAN으로 성공 실패로 설계했습니다
+		public boolean join(MemberDTO member) {
+	
+			// 쿼리문 작성
+			//22
+	    String query = "INSERT INTO TBL_MEMBER "
+	            + "(MEM_NUM, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONENO, MEM_EMAIL) "
+	            + "VALUES (SEQ_MEM.NEXTVAL, ?, ?, ?, ?, ?)";
+	   
+	    // 실행 결과를 저장하기 위한 변수선언입니다.
+	    int result = 0;
+	    	
+	    //DB와 연결을 하기위한 코드입니다.
+	    try {
+	        connection = DBConnector.getConnection();
+	        preparedStatement = connection.prepareStatement(query);
+	      //(?) 위 쿼리문 물음표 개수만큼 실제 회원 데이터를 바인딩합니다.
+	        preparedStatement.setString(1, member.getMemId());
+	        preparedStatement.setString(2, member.getMemPw());
+	        preparedStatement.setString(3, member.getMemName());
+	        preparedStatement.setString(4, member.getMemPhoneNo());
+	        preparedStatement.setString(5, member.getMemEmail());
+	        // 성공하면 1 실패하면 1을 반환합니다
+	        result = preparedStatement.executeUpdate();
+
+	    } catch (SQLException e) {
+	        System.out.println("join() SQL 오류");
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	            if (connection != null) {
+	                connection.close();
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("join() 연결 종료 오류");
+	            e.printStackTrace();
+	        }
+	    }
+	    //실행 결과가 1이상이면 TRUE, 아니면 FALSE를 반환합니다.
+	    return result > 0;
+	}
+
 		
 		//로그인 메소드
+		/**
+		 * @author 성민
+		 * @param memId 회원 아이디
+		 * @param memPw 회원 비밀번호
+		 * @return String 로그인 성공 시 회원 이름, 실패 시 null 반환
+		 * <p>
+		 * 로그인 메서드입니다.
+		 * 전달받은 아이디와 비밀번호가 저장된 회원 정보와 일치하는지 검사하며,
+		 * 일치할 경우 해당 회원의 이름을 반환합니다.
+		 * 로그인에 실패하면 null을 반환합니다.
+		 */
 		
-		public boolean login(String id, String pw) {
-			for(MemberDTO m : memberList) {
-				if(m.getId().equals(id) && m.getPw().equals(pw)) {
-					return true;
-				}
-			}
-			return false;
+		//로그인 기능을 담당하는 메소드입니다.
+		//매개변수로 아이디와 비밀번호를 받아 로그인이 정상적으로 가능한지 확인합니다.
+		public String login(String memId, String memPw) {
+			
+			// 아이디와 비밀번호가 맞는지 확인하는 쿼리
+		    String query = "SELECT MEM_NAME FROM TBL_MEMBER WHERE MEM_ID = ? AND MEM_PW = ?";
+		    // 결과를 저장하는 변수를 선언합니다 기본값은 NULL값으로 했습니다.
+		    String name = null;
+		    //DB와 연결을 하기위한 코드입니다.
+		    try {
+		        connection = DBConnector.getConnection();
+		        preparedStatement = connection.prepareStatement(query);
+		       // 물음표에 사용자가 입력한 아이디와 비밀번호를 바인딩합니다.
+		        preparedStatement.setString(1, memId);
+		        preparedStatement.setString(2, memPw);
+		        //결과를 ResultSet에 저장합니다.
+		        resultSet = preparedStatement.executeQuery();
+		        // 로그인이 성공적으로 확인되면 회원 이름을 가져와서 NAME변수에 저장합니다.
+		        if (resultSet.next()) {
+		            name = resultSet.getString(1);
+		        }
+
+		    } catch (SQLException e) {
+		        System.out.println("login() sql 오류");
+		        e.printStackTrace();
+		    } finally {
+		        try {
+		            if (resultSet != null) {
+		                resultSet.close();
+		            }
+		            if (preparedStatement != null) {
+		                preparedStatement.close();
+		            }
+		            if (connection != null) {
+		                connection.close();
+		            }
+		        } catch (SQLException e) {
+		            System.out.println("login() 연결 종료 오류");
+		            e.printStackTrace();
+		        }
+		    }
+
+		    return name;
 		}
-		
-		public boolean loginStream(String id, String pw) {
-		      return memberList.stream().anyMatch(u -> u.getId().equals(id) && u.getPw().equals(pw));
-		
-		
-		
-		
-		
-		
+		       
 		
 		
 		
