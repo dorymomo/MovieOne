@@ -74,7 +74,35 @@ public class MovioDAO {
 	
 	
 	//영화삭제 메소드
-	public void movieDelete() {
+	public boolean movieDelete(String mvTitle) {
 		
+		String query = "delete from tbl_movie where mv_title = ?";
+		
+		try {
+			connection = DBConnector.getConnection();
+			preparedStatement = connection.prepareStatement(query);
+			
+			preparedStatement.setString(1, mvTitle);
+			
+			int result = preparedStatement.executeUpdate();
+			
+			return result > 0;
+		} catch (SQLException e) {
+			System.out.println("movieDelete() sql 연결 오류");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				System.out.println("movieDelete() 연결 해제 오류");
+				e.printStackTrace();
+			}
+		}
+		return false;
 	}
 }

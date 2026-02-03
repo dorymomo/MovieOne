@@ -1,6 +1,6 @@
 package com.koreait.dto;
 
-public class ReservaionDTO {
+public class ReservationDTO {
 //	--예약테이블
 //	CREATE TABLE TBL_RESERVATION(
 //	   REV_NUM NUMBER PRIMARY KEY,	정수형
