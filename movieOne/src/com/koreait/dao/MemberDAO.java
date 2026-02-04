@@ -185,7 +185,7 @@ public class MemberDAO {
 	 *         이메일 및 핸드폰 번호 수정에 대한 메서드
 	 *         </p>
 	 */
-	public boolean changeEmailAndPhoneNo(int memNum, String newEmail, String newPhoneNo) {
+	public boolean changeEmailAndPhoneNo(MemberDTO memberDTO) {
 		// update 쿼리문 설정
 		String query = "Update tbl_member set mem_email = ?, mem_phoneno = ? where mem_num = ?";
 		// 결과 저장을 위한 변수 선언
@@ -196,9 +196,9 @@ public class MemberDAO {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			// 미완성 쿼리의 파라미터 대입
-			preparedStatement.setString(1, newEmail);
-			preparedStatement.setString(2, newPhoneNo);
-			preparedStatement.setInt(3, memNum);
+			preparedStatement.setString(1, memberDTO.getMemEmail());
+			preparedStatement.setString(2, memberDTO.getMemPhoneNo());
+			preparedStatement.setInt(3, memberDTO.getMemNum());
 			// 쿼리 실행 후 결과 저장
 			queryResult = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
