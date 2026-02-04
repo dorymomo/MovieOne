@@ -1,6 +1,18 @@
 package com.koreait.dto;
 
 public class MemberDTO {
+	/**
+	 * @author 이해준
+	 * @version jdk17 
+	 * 
+	 * 영화관의 회원 정보를 담는 DTO 클래스이다. 
+	 * 회원의 번호, 아이디, 비밀번호, 이름, 전화번호, 이메일의 정보를 관리한다 
+	 * 
+	 */
+	
+	/**
+	 * 	TBL_MEMBER 테이블 
+	 */
 //	CREATE TABLE TBL_MEMBER(
 //			   MEM_NUM NUMBER,
 //			   MEM_ID VARCHAR2(100) NOT NULL,
@@ -13,6 +25,9 @@ public class MemberDTO {
 //			);
 
 	
+	/**
+	 * 필드 
+	 */
 	private int memNum;
 	private String memId;
 	private String memPw;
@@ -21,6 +36,9 @@ public class MemberDTO {
 	private String memEmail;
 	
 	
+	/**
+	 * 필드의 getter, setter 생성
+	 */
 	public int getMemNum() {
 		return memNum;
 	}
@@ -58,7 +76,10 @@ public class MemberDTO {
 		this.memEmail = memEmail;
 	}
 	
-	
+	/**
+	 * 객체의 필드 정보를 문자열 형태로 반환한다 
+	 * @return 회원 정보 문자열 
+	 */
 	@Override
 	public String toString() {
 		return "MemberDTO [memNum=" + memNum + ", memId=" + memId + ", memPw=" + memPw + ", memName=" + memName
