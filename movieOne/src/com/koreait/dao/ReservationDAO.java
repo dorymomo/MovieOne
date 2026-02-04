@@ -21,7 +21,7 @@ public class ReservationDAO {
 	public List<joinDTO> reservationInfo(int memNum) {
 
 		String query = "SELECT tmv.MV_TITLE, tm.MEM_NAME, tmv.MV_LOCATION, " + "tr.REV_REG_DATE, tr.REV_SHOW_DATE "
-				+ "FROM TBL_RESERVATION tr " + "JOIN tbl_member tm ON tr.MEM_NUM = tm.MEM_NUM "
+				+ "tr.REV_NUM  FROM TBL_RESERVATION tr " + "JOIN tbl_member tm ON tr.MEM_NUM = tm.MEM_NUM "
 				+ "JOIN tbl_movie tmv ON tr.MV_NUM = tmv.MV_NUM " + "WHERE tr.MEM_NUM = ?";
 
 		List<joinDTO> list = new ArrayList<>();
@@ -43,6 +43,7 @@ public class ReservationDAO {
 				dto.setMvLocation(resultSet.getString(3));
 				dto.setRevRegDate(resultSet.getString(4));
 				dto.setRevShowDate(resultSet.getString(5));
+				dto.setRevNum(resultSet.getInt(6));
 
 				list.add(dto);
 			}
