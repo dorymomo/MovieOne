@@ -64,7 +64,18 @@ public class MovieView {
 
 		}
 	}
-
+	
+//	----------------------------------------------------
+	public void showMovieListByStream(List<MovieDTO> list) {
+		if(list.isEmpty()) {
+			System.out.println("현재 상영 가능한 영화가 없습니다!");
+		}
+		
+		list.stream().forEach(x -> {
+			System.out.println(x.getMvTitle() + ", " + x.getMvPrice() + ", " + x.getMvGenre() + ", " + x.getMvLocation());
+		});
+	}
+//	----------------------------------------------------
 	public void findMovieWithGenre(List<MovieDTO> list) { // 1-2. 영화 장르로 찾기
 		if(list.isEmpty()) {
 			System.out.println("검색 결과가 없습니다!");
