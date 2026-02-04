@@ -133,13 +133,26 @@ public class MovieView {
 		return choice;
 
 	}
-
-	public MovieDTO doReservation(List<MovieDTO> list) { // 2-1. 영화 예매하기
+	
+	
+	
+	
+	
+	public MovieDTO movieSelect(List<MovieDTO> list) { // 2-1. 영화 예매하기
+		
+		
 		if(list.isEmpty()) {
 			System.out.println("예매 가능한 영화가 없습니다");
 		}
+		
 		MovieDTO reserv = null;
+		
 		System.out.println("영화 예매하기");
+		System.out.println("현재 상영 가능한 영화");
+		
+		for (MovieDTO m : list) {
+			System.out.println(m.getMvTitle() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
+		}
 		
 		System.out.println("예매하고 싶은 영화명을 입력해주세요");
 		String title = sc.nextLine();
@@ -151,9 +164,16 @@ public class MovieView {
 				break;
 			}
 		}
+		
 		return reserv;	
 		}
+
+	public String selectDate() { // 상영하고 싶은 날짜 선택
 		
+		System.out.print("상영하고 싶은 날짜를 선택해주세요 : ");
+		 
+		return sc.nextLine();
+	}
 	
 
 	public void myReservation(List<ReservationDTO> list) { // 2-2. 내 예매 내역 확인하기

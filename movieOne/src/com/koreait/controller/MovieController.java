@@ -234,7 +234,7 @@ public class MovieController {
 
 	// 예매 조회
 	private void selectRes() {
-		List<ReservationDAO> list = resDAO.reservationInfo(loginUser.getMemNum());
+		List<ReservationDTO> list = resDAO.reservationInfo(loginUser.getMemNum());
 //		view.printResList(list);
 		view.myReservation(list);
 	}
