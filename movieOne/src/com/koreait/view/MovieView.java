@@ -98,6 +98,11 @@ public class MovieView {
 	}
 	
 //	----------------------------------------------------
+	/**
+	 * @author 창훈
+	 * @param MovieDTO List
+	 * <p> movieDTOList를 받아 상영가능한 영화를 출력하는메소드를 stream으로 작업한 메소드입니다.</p>
+	 */
 	public void showMovieListByStream(List<MovieDTO> list) {
 		if(list.isEmpty()) {
 			System.out.println("현재 상영 가능한 영화가 없습니다!");
@@ -192,6 +197,27 @@ public class MovieView {
 		
 		return reserv;	
 		}
+	//------------------------------------------------------------------------------------------------
+	/**
+	 * @author 창훈
+	 * @since jdk 17
+	 * @param movieList : 전체 영화 리스트
+	 * @return MovieDTO : 예매하려고 선택한 영화
+	 * <p>전체 영화 리스트를 출력하고, 유저에게 원하는 영화를 입력받아 리스트 중 영화제목이 일치하는 데이터를 반환하는 메서드</p>
+	 */
+	public MovieDTO movieSelectByStream(List<MovieDTO> movieList)
+	{
+		if(movieList.isEmpty()) {
+			System.out.println("예매 가능한 영화가 없습니다");
+		}
+		
+		// 영화 리스트 출력
+		movieList.stream().forEach(System.out::println);
+		
+		System.out.println("예매할 영화를 선택해주세요 : ");
+		String title = sc.nextLine();
+		return movieList.stream().filter(x-> x.getMvTitle().equals(title)).findFirst().orElse(null);
+	}
 
 
 	public String selectDate(String str) { // 상영하고 싶은 날짜 선택
@@ -213,7 +239,23 @@ public class MovieView {
 			System.out.println(m.getRevNum() + ", " + m.getMvTitle() + " , " + m.getRevShowDate() + ", " + m.getRevRegDate() + " , " + m.getMvLocation());
 		}
 	}
-
+	
+	//------------------------------------------------------------------------------------------------------------------------
+	/**
+	 * @author 창훈
+	 * @since jdk 17
+	 * @param list : 조회한 예매내역 리스트
+	 * <p>전체 예매내역을 출력하는 메소드</p>
+	 */
+	public void myReservationByStream(List<joinDTO> list) { 
+		if(list.isEmpty()) {
+			System.out.println("예매 내역이 없습니다!");
+		}
+		
+		System.out.println("내 예매 내역 조회"); 
+		list.stream().forEach(System.out::println);
+	}
+	//------------------------------------------------------------------------------------------------------------------------
 	public int editReservation() { // 2-3. 내 예매 수정하기
 		
 		System.out.println("내 예매 수정하기");
@@ -246,7 +288,28 @@ public class MovieView {
 		return 0;
 		
 	}
+//	-----------------------------------------------------
+	/**
+	 * @author 창훈
+	 * @since jdk 17
+	 * @param list : 전체 예약 리스트
+	 * @return int : 예약 취소할 예약번호
+	 * <p>전체 예약리스트 출력후 유저에게 예약번호를 선택받아 해당 번호를 반환하는 메소드입니다.
+	 * 잘못된 번호를 입력 시, 반환되지 않도록 처리했습니다.</p>
+	 */
+public int cancelReservationByStream(List<joinDTO> list) {
+		
+		if(list.isEmpty()) {
+			System.out.println("예매 내역이 없습니다!");
+		}
 
+		System.out.println("취소하고 싶은 예매번호를 입력해주세요");
+		int select = sc.nextInt();
+		sc.nextLine();
+		
+		joinDTO selectedDTO = list.stream().filter(x->x.getRevNum() == select).findFirst().orElse(null); 
+		return selectedDTO == null ? 0 : selectedDTO.getRevNum();
+	}
 	
 	
 //	-----------------------------------------------------

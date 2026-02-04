@@ -205,6 +205,7 @@ public class MemberDAO {
 
 	/**
 	 * @author 창훈
+	 * @since jdk 17
 	 * @param memNum : 회원번호
 	 * @return boolean : 회원 탈퇴 결과
 	 *         <p>
@@ -255,6 +256,7 @@ public class MemberDAO {
 
 	/**
 	 * @author 창훈
+	 * @since jdk 17
 	 * @param memNum     : 수정할 대상의 회원번호
 	 * @param newEmail   : 변경할 이메일
 	 * @param newPhoneNo : 변경할 핸드폰번호
