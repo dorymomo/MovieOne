@@ -7,7 +7,7 @@ package com.koreait.dto;
  * 회원의 이름, 영화제목 예약일, 상영관, 상영일 정보를 관리한다
  * 
  */
-public class joinDTO {
+public class JoinDTO {
 	
 	/**
 	 * 영화 예메를 위한 joinDTO이다. 

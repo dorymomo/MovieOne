@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
-import com.koreait.dto.joinDTO;
+import com.koreait.dto.JoinDTO;
 
 public class MovieView {
-
 
 	private Scanner sc = new Scanner(System.in);
 
@@ -229,13 +228,13 @@ public class MovieView {
 	}
 	
 
-	public void myReservation(List<joinDTO> list) { // 2-2. 내 예매 내역 확인하기
+	public void myReservation(List<JoinDTO> list) { // 2-2. 내 예매 내역 확인하기
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
 		
 		System.out.println("내 예매 내역 조회"); 
-		for (joinDTO m : list) {
+		for (JoinDTO m : list) {
 			System.out.println(m.getRevNum() + ", " + m.getMvTitle() + " , " + m.getRevShowDate() + ", " + m.getRevRegDate() + " , " + m.getMvLocation());
 		}
 	}
@@ -247,7 +246,7 @@ public class MovieView {
 	 * @param list : 조회한 예매내역 리스트
 	 * <p>전체 예매내역을 출력하는 메소드</p>
 	 */
-	public void myReservationByStream(List<joinDTO> list) { 
+	public void myReservationByStream(List<JoinDTO> list) { 
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
@@ -266,7 +265,7 @@ public class MovieView {
 		
 	}
 
-	public int cancelReservation(List<joinDTO> list) { // 2-4. 예매 취소하기
+	public int cancelReservation(List<JoinDTO> list) { // 2-4. 예매 취소하기
 		
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
@@ -279,7 +278,7 @@ public class MovieView {
 		int select = sc.nextInt();
 		sc.nextLine();
 		
-		for(joinDTO m : list) {
+		for(JoinDTO m : list) {
 			if(m.getRevNum() == select)
 			{
 				return m.getRevNum();
@@ -297,7 +296,7 @@ public class MovieView {
 	 * <p>전체 예약리스트 출력후 유저에게 예약번호를 선택받아 해당 번호를 반환하는 메소드입니다.
 	 * 잘못된 번호를 입력 시, 반환되지 않도록 처리했습니다.</p>
 	 */
-public int cancelReservationByStream(List<joinDTO> list) {
+public int cancelReservationByStream(List<JoinDTO> list) {
 		
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
@@ -307,7 +306,7 @@ public int cancelReservationByStream(List<joinDTO> list) {
 		int select = sc.nextInt();
 		sc.nextLine();
 		
-		joinDTO selectedDTO = list.stream().filter(x->x.getRevNum() == select).findFirst().orElse(null); 
+		JoinDTO selectedDTO = list.stream().filter(x->x.getRevNum() == select).findFirst().orElse(null); 
 		return selectedDTO == null ? 0 : selectedDTO.getRevNum();
 	}
 	

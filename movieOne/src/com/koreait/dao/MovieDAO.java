@@ -6,13 +6,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import com.koreait.dto.MovieDTO;
 
 //- 준승  영화조회, 영화삭제    
 //view : 준승
-public class MovioDAO {
+public class MovieDAO {
 	
 	public Connection connection;
 	public PreparedStatement preparedStatement;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import com.koreait.dto.ReservationDTO;
-import com.koreait.dto.joinDTO;
+import com.koreait.dto.JoinDTO;
 
 /**
  * @author 이해준
@@ -41,7 +41,7 @@ public class ReservationDAO {
 	 * 회원 번호(memNum)에 해당하는 예매 내역을 조회한다.
 	 * 예매/회원/영화 테이블을 JOIN하여 영화 제목, 상영관, 예매일/상영일, 예매번호를 함께 반환한다.
 	 */
-	public List<joinDTO> reservationInfo(int memNum) {
+	public List<JoinDTO> reservationInfo(int memNum) {
 
 	
 //	 영화의 이름, 회원번호,상영관,예약일,상영일,예약번호를 반환하는 쿼리문을 작성후 변수에 저장한다.
@@ -51,7 +51,7 @@ public class ReservationDAO {
 
 	
 //	 	joinDTO리스트의 객체를 생성한다 
-		List<joinDTO> list = new ArrayList<>();
+		List<JoinDTO> list = new ArrayList<>();
 
 	
 //	  	JAVA와 DBMS연결과 정보전달 중 예외가 발생할 경우를 대비하여 try-catch를 사용한다 
@@ -80,7 +80,7 @@ public class ReservationDAO {
 
 //	 	joinDTO의 객체를 생성한다 
 
-				joinDTO dto = new joinDTO();
+				JoinDTO dto = new JoinDTO();
 
 
 //	  	joinDTO의 객체를 이용하여 해당값들의 결과를 입력한다 

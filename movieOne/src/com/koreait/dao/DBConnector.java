@@ -3,7 +3,11 @@ package com.koreait.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+/**
+ * @author KDT 1팀
+ * @since jdk 17
+ * <p>DBMS와 Java간의 연결을 담당하는 클래스입니다.</p>
+ */
 public class DBConnector
 {
 	public static Connection getConnection() {
