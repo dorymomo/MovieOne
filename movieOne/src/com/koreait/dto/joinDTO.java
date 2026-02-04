@@ -12,6 +12,7 @@ public class joinDTO {
 	private String mvLocation;
 	private String revRegDate;
 	private String revShowDate;
+	private int revNum;
 	public int getMemNum() {
 		return memNum;
 	}
@@ -42,11 +43,18 @@ public class joinDTO {
 	public void setRevShowDate(String revShowDate) {
 		this.revShowDate = revShowDate;
 	}
+	public int getRevNum() {
+		return revNum;
+	}
+	public void setRevNum(int revNum) {
+		this.revNum = revNum;
+	}
 	@Override
 	public String toString() {
 		return "joinDTO [memNum=" + memNum + ", mvTitle=" + mvTitle + ", mvLocation=" + mvLocation + ", revRegDate="
-				+ revRegDate + ", revShowDate=" + revShowDate + "]";
+				+ revRegDate + ", revShowDate=" + revShowDate + ", revNum=" + revNum + "]";
 	}
+	
 	
 	
 	
