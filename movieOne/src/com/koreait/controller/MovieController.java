@@ -228,9 +228,7 @@ public class MovieController {
 	// 영화 삭제
 	private void deleteMovie() {
 //      MovieDTO dto = view.inputMovieId();
-		MovieDTO dto = view.deleteMovie();
-		boolean result = mvDAO.movieDelete(dto.getMvTitle());
-
+		boolean result = mvDAO.movieDelete(view.deleteMovie());
 		view.msg(result ? "영화삭제 성공" : "영화삭제 실패");
 	}
 

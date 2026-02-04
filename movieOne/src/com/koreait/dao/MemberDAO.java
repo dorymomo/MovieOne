@@ -27,22 +27,29 @@ public class MemberDAO {
 	
 	public boolean checkID(String memId) {
 		 // 문자열로 쿼리문 작성한다
-		 String query = "SELECT  mem_num FROM TBL_member WHERE member_ID = ?";
+		 String query = "SELECT mem_num FROM TBL_member WHERE member_ID = ?";
 		 
+		// DB와 연결을 하기위한 코드입니다.
 		 try {
 				connection = DBConnector.getConnection();
 				preparedStatement = connection.prepareStatement(query);
-				
+				// (?) 위 물음표 실제 멤버아이디로 데이터를 바인딩합니다.
 				preparedStatement.setString(1, memId);
+				//쿼리에 조회된 결과를 resultset에 반환합니다. 
 				resultSet = preparedStatement.executeQuery();
-				
+				//이미 디비에 데이터가 있는지 확인하는하고 있으면 true가 되어서 false가 반환됩니다.
 				  if (resultSet.next()) {
-			            return false; // 이미 아이디가 존재한다
+			            return false;
 				    }
+				  
+		//DB 조회 중 SQL 오류가 발생했을 경우 예외처리합니다		  
 	      } catch (SQLException e) {
 	         // TODO Auto-generated catch block
 	         System.out.println("checkId() sql 오류!!");
 	         e.printStackTrace();
+	         
+	         // DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+				//사용이 끝난 후 반드시 종료하도록 처리했습니다
 	      } finally {
 	         try {
 	            if (resultSet != null) {
@@ -99,7 +106,7 @@ public class MemberDAO {
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			// (?) 위 쿼리문 물음표 개수만큼 실제 회원 데이터를 바인딩합니다.
+			// (?) 위 쿼리문 물음표 개수만큼 각 실제 회원 데이터를 바인딩합니다.
 			preparedStatement.setString(1, member.getMemId());
 			preparedStatement.setString(2, member.getMemPw());
 			preparedStatement.setString(3, member.getMemName());
@@ -107,10 +114,13 @@ public class MemberDAO {
 			preparedStatement.setString(5, member.getMemEmail());
 			// 성공하면 1 실패하면 1을 반환합니다
 			result = preparedStatement.executeUpdate();
-
+			
+			//이 부분은 SQL 실행 중 오류가 발생했을 때 처리하는 예외 처리 구문입니다
 		} catch (SQLException e) {
 			System.out.println("join() SQL 오류");
 			e.printStackTrace();
+			//DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+			//사용이 끝난 후 반드시 종료하도록 처리했습니다
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -166,10 +176,12 @@ public class MemberDAO {
 		         user.setMemPhoneNo(resultSet.getString("MEM_PHONENO"));
 		         user.setMemEmail(resultSet.getString("MEM_EMAIL"));
 			}
-
+			//DB 처리 중 발생할 수 있는 예외를 처리하기 위한 구문입니다
 		} catch (SQLException e) {
 			System.out.println("login() sql 오류");
 			e.printStackTrace();
+			//DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+			//사용이 끝난 후 반드시 종료하도록 처리했습니다
 		} finally {
 			try {
 				if (resultSet != null) {
@@ -186,7 +198,8 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-
+		//로그인 성공 여부뿐만 아니라 로그인한 사용자의 정보를 다른 곳에서 사용하기 위해 MemberDTO 
+		//전체 데이터를 반환했습니다.
 		return user;
 	}
 
