@@ -193,7 +193,7 @@ public class MovieController {
 //		MemberDTO dto = view.inputUpdatemember(loginUser);
 		MemberDTO dto = view.userChange();
 		dto.setMemNum(loginUser.getMemNum());
-		boolean result = memDAO.update(dto);
+		boolean result = memDAO.changeEmailAndPhoneNo(dto);
 
 		view.msg(result ? "회원수정 성공" : "회원수정 실패");
 	}
@@ -201,7 +201,7 @@ public class MovieController {
 	// 회원탈퇴
 	private void deleteMember() {
 		view.deleteAccount();
-		boolean result = memDAO.delete(loginUser.getMemNum());
+		boolean result = memDAO.signOutMember(loginUser.getMemNum());
 		view.msg(result ? "회원탈퇴 성공" : "회원탈퇴 실패");
 	}
 
@@ -229,14 +229,14 @@ public class MovieController {
 	private void deleteMovie() {
 //      MovieDTO dto = view.inputMovieId();
 		MovieDTO dto = view.deleteMovie();
-		boolean result = mvDAO.deleteMovie(dto);
+		boolean result = mvDAO.movieDelete(dto.getMvTitle());
 
 		view.msg(result ? "영화삭제 성공" : "영화삭제 실패");
 	}
 
 	// 예매 조회
 	private void selectRes() {
-		List<ReservationDAO> list = resDAO.selectMember(loginUser.getMemNum());
+		List<ReservationDAO> list = resDAO.reservationInfo(loginUser.getMemNum());
 //		view.printResList(list);
 		view.myReservation(list);
 	}
