@@ -134,12 +134,20 @@ public class ReservationDAO {
 	//예매 하는 메소드 
 	//매개변수는 영화 번호, 회원 번호, 상영날짜 
 	//반환 타입은 boolean 영화 예매 성공 여부 
-	public boolean reservation(int mvNum, int memNum, String showDate) {
-		
-		
-		
-		
-	
+//	public boolean reservation(int mvNum, int memNum, String showDate) {
+//		
+//		String query = "SELECT  mv_num,MEM_NUM,REV_SHOW_DATE "
+//				+ "FROM TBL_RESERVATION";
+//		
+//		int result = 0;
+//		
+////		connection = DBConnector.getConnection();
+////		 preparedStatement = connection.prepareStatement(query);
+////		 resultSet = preparedStatement.executeUpdate();
+////		 
+//		
+//		
+//	
 	}
 	
 	
