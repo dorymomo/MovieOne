@@ -26,12 +26,34 @@ public class MovieView {
 		return choice;
 	}
 
-	public void inputlogin() {
+	public String inputId(MemberDTO m) {
+		System.out.println("아이디를 입력해주세요! : ");
+		String userId = sc.nextLine();
+		
+		return userId;
 		
 	}
 	
-	public void inputjoin() {
+	public String inputPw() {
+		System.out.println("비밀번호를 입력해주세요 ! : ");
+		String userPw = sc.nextLine();
 		
+		return userPw;
+	}
+	
+	public void inputjoin(MemberDTO m) {
+		System.out.println("회원가입을 진행합니다");
+		
+		System.out.println("사용할 아이디를 입력해주세요 : ");
+		m.setMemId(sc.nextLine());
+		System.out.println("사용할 비밀번호를 입력해주세요 : ");
+		m.setMemPw(sc.nextLine());
+		System.out.println("이름을 입력해주세요 : ");
+		m.setMemName(sc.nextLine());
+		System.out.println("전화번호를 입력해주세요 : ");
+		m.setMemPhoneNo(sc.nextLine());
+		System.out.println("이메일을 입력해주세요 : ");
+		m.setMemEmail(sc.nextLine());
 	}
 //	----------------------------------------------
 	
