@@ -8,6 +8,7 @@ import com.koreait.dao.ReservationDAO;
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
 import com.koreait.dto.ReservationDTO;
+import com.koreait.dto.joinDTO;
 import com.koreait.view.MovieView;
 
 public class MovieController {
@@ -234,7 +235,7 @@ public class MovieController {
 
 	// 예매 조회
 	private void selectRes() {
-		List<ReservationDTO> list = resDAO.reservationInfo(loginUser.getMemNum());
+		List<joinDTO> list = resDAO.reservationInfo(loginUser.getMemNum());
 //		view.printResList(list);
 		view.myReservation(list);
 	}
