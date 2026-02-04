@@ -12,6 +12,72 @@ public class MemberDAO {
 	Connection connection;
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
+	
+	
+	
+	//김성민 아이디 중복검사
+	/**
+	 * @author 성민
+	 * @param memId : 매개변수로 사용자가 입력한 값을 받아온다
+	 * @return boolean : 아이디가 중복한지 안한지 true false로 반환하기 위해 불린형으로 했습니다
+	 *         <p>
+	 *         아이디 중복검사 메서드입니다 아이디를 전달받아 중복한지 확인합니다.
+	 *         </p>
+	 */
+	
+	public boolean checkID(String memId) {
+		 // 문자열로 쿼리문 작성한다
+		 String query = "SELECT mem_num FROM TBL_member WHERE member_ID = ?";
+		 
+		// DB와 연결을 하기위한 코드입니다.
+		 try {
+				connection = DBConnector.getConnection();
+				preparedStatement = connection.prepareStatement(query);
+				// (?) 위 물음표 실제 멤버아이디로 데이터를 바인딩합니다.
+				preparedStatement.setString(1, memId);
+				//쿼리에 조회된 결과를 resultset에 반환합니다. 
+				resultSet = preparedStatement.executeQuery();
+				//이미 디비에 데이터가 있는지 확인하는하고 있으면 true가 되어서 false가 반환됩니다.
+				  if (resultSet.next()) {
+			            return false;
+				    }
+				  
+		//DB 조회 중 SQL 오류가 발생했을 경우 예외처리합니다		  
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         System.out.println("checkId() sql 오류!!");
+	         e.printStackTrace();
+	         
+	         // DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+				//사용이 끝난 후 반드시 종료하도록 처리했습니다
+	      } finally {
+	         try {
+	            if (resultSet != null) {
+	               resultSet.close();
+	            }
+
+	            if (preparedStatement != null) {
+	               preparedStatement.close();
+	            }
+
+	            if (connection != null) {
+	               connection.close();
+	            }
+	         } catch (SQLException e) {
+	            // TODO Auto-generated catch block
+	            System.out.println("checkId() 연결 해제 오류");
+	            e.printStackTrace();
+	         }
+	      }
+
+	      return true; // 중복된 아이디가 없음을 의미
+
+	   }
+	
+	
+	
+	
+	
 
 	// 김성민 회원 가입, 로그인
 	/**
@@ -40,7 +106,7 @@ public class MemberDAO {
 		try {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
-			// (?) 위 쿼리문 물음표 개수만큼 실제 회원 데이터를 바인딩합니다.
+			// (?) 위 쿼리문 물음표 개수만큼 각 실제 회원 데이터를 바인딩합니다.
 			preparedStatement.setString(1, member.getMemId());
 			preparedStatement.setString(2, member.getMemPw());
 			preparedStatement.setString(3, member.getMemName());
@@ -48,10 +114,13 @@ public class MemberDAO {
 			preparedStatement.setString(5, member.getMemEmail());
 			// 성공하면 1 실패하면 1을 반환합니다
 			result = preparedStatement.executeUpdate();
-
+			
+			//이 부분은 SQL 실행 중 오류가 발생했을 때 처리하는 예외 처리 구문입니다
 		} catch (SQLException e) {
 			System.out.println("join() SQL 오류");
 			e.printStackTrace();
+			//DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+			//사용이 끝난 후 반드시 종료하도록 처리했습니다
 		} finally {
 			try {
 				if (preparedStatement != null) {
@@ -82,12 +151,12 @@ public class MemberDAO {
 
 	// 로그인 기능을 담당하는 메소드입니다.
 	// 매개변수로 아이디와 비밀번호를 받아 로그인이 정상적으로 가능한지 확인합니다.
-	public String login(String memId, String memPw) {
+	public MemberDTO login(String memId, String memPw) {
 
 		// 아이디와 비밀번호가 맞는지 확인하는 쿼리
-		String query = "SELECT MEM_NAME FROM TBL_MEMBER WHERE MEM_ID = ? AND MEM_PW = ?";
+		String query = "SELECT MEM_NUM, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONENO, MEM_EMAIL FROM TBL_MEMBER WHERE MEM_ID = ? AND MEM_PW = ?";
 		// 결과를 저장하는 변수를 선언합니다 기본값은 NULL값으로 했습니다.
-		String name = null;
+		MemberDTO user = null;
 		// DB와 연결을 하기위한 코드입니다.
 		try {
 			connection = DBConnector.getConnection();
@@ -97,14 +166,22 @@ public class MemberDAO {
 			preparedStatement.setString(2, memPw);
 			// 결과를 ResultSet에 저장합니다.
 			resultSet = preparedStatement.executeQuery();
-			// 로그인이 성공적으로 확인되면 회원 이름을 가져와서 NAME변수에 저장합니다.
+			// 로그인이 성공적으로 확인되면 회원 모든 정보를 가져와서 user변수에 저장합니다.
 			if (resultSet.next()) {
-				name = resultSet.getString(1);
+			     user = new MemberDTO(); // 객체 생성
+		         user.setMemNum(resultSet.getInt("MEM_NUM"));
+		         user.setMemId(resultSet.getString("MEM_ID"));
+		         user.setMemPw(resultSet.getString("MEM_PW"));
+		         user.setMemName(resultSet.getString("MEM_NAME"));
+		         user.setMemPhoneNo(resultSet.getString("MEM_PHONENO"));
+		         user.setMemEmail(resultSet.getString("MEM_EMAIL"));
 			}
-
+			//DB 처리 중 발생할 수 있는 예외를 처리하기 위한 구문입니다
 		} catch (SQLException e) {
 			System.out.println("login() sql 오류");
 			e.printStackTrace();
+			//DB 자원 누수를 방지하기 위해 PreparedStatement와 Connection을
+			//사용이 끝난 후 반드시 종료하도록 처리했습니다
 		} finally {
 			try {
 				if (resultSet != null) {
@@ -121,8 +198,9 @@ public class MemberDAO {
 				e.printStackTrace();
 			}
 		}
-
-		return name;
+		//로그인 성공 여부뿐만 아니라 로그인한 사용자의 정보를 다른 곳에서 사용하기 위해 MemberDTO 
+		//전체 데이터를 반환했습니다.
+		return user;
 	}
 
 	/**
@@ -185,7 +263,7 @@ public class MemberDAO {
 	 *         이메일 및 핸드폰 번호 수정에 대한 메서드
 	 *         </p>
 	 */
-	public boolean changeEmailAndPhoneNo(int memNum, String newEmail, String newPhoneNo) {
+	public boolean changeEmailAndPhoneNo(MemberDTO memberDTO) {
 		// update 쿼리문 설정
 		String query = "Update tbl_member set mem_email = ?, mem_phoneno = ? where mem_num = ?";
 		// 결과 저장을 위한 변수 선언
@@ -196,9 +274,9 @@ public class MemberDAO {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 			// 미완성 쿼리의 파라미터 대입
-			preparedStatement.setString(1, newEmail);
-			preparedStatement.setString(2, newPhoneNo);
-			preparedStatement.setInt(3, memNum);
+			preparedStatement.setString(1, memberDTO.getMemEmail());
+			preparedStatement.setString(2, memberDTO.getMemPhoneNo());
+			preparedStatement.setInt(3, memberDTO.getMemNum());
 			// 쿼리 실행 후 결과 저장
 			queryResult = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
