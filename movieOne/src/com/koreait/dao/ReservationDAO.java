@@ -175,7 +175,12 @@ public class ReservationDAO {
 
 	}
 
-	// 수정
+	/**
+	 * @author 이창표
+	 * @param dto
+	 * @return boolean
+	 * <p>예매번호,회원번호를 받아 영화 보는날을 변경하는 메소드 </p>
+	 */
 	public boolean updateShowDate(ReservationDTO dto) {
 		String query = "UPDATE TBL_RESERVATION SET REV_SHOW_DATE = ? WHERE REV_NUM = ? AND MEM_NUM = ?";
 		int result = 0;
@@ -208,8 +213,13 @@ public class ReservationDAO {
 		return result > 0;
 
 	}
-
-	// 취소
+	/**
+	 * @author 이창표
+	 * @param revNum
+	 * @param memNum
+	 * @return boolean
+	 * <p>예매번호,맴버번호를 받아서 예약을 취소하는 메소드</p>
+	 */
 	public boolean cancel(int revNum, int memNum) {
 		String query = "DELETE FROM TBL_RESERVATION WHERE REV_NUM = ? AND MEM_NUM = ?";
 		int result = 0;
