@@ -12,7 +12,7 @@ import com.koreait.dto.ReservationDTO;
 
 
 
-public class Reservation {
+public class ReservationDAO {
 	
 	public Connection connection;
 	public PreparedStatement preparedStatement;
@@ -134,10 +134,13 @@ public class Reservation {
 	//예매 하는 메소드 
 	//매개변수는 영화 번호, 회원 번호, 상영날짜 
 	//반환 타입은 boolean 영화 예매 성공 여부 
-//	public boolean reservation(int mvNum, int memNum, String showDate) {
-//		+
-//	
-//	}
+	public boolean reservation(int mvNum, int memNum, String showDate) {
+		
+		
+		
+		
+	
+	}
 	
 	
 	
