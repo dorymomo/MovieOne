@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
-import com.koreait.dto.ReservationDTO;
+import com.koreait.dto.joinDTO;
 
 public class MovieView {
 
@@ -26,12 +26,34 @@ public class MovieView {
 		return choice;
 	}
 
-	public void inputlogin() {
+	public String inputId(MemberDTO m) {
+		System.out.println("아이디를 입력해주세요! : ");
+		String userId = sc.nextLine();
+		
+		return userId;
 		
 	}
 	
-	public void inputjoin() {
+	public String inputPw() {
+		System.out.println("비밀번호를 입력해주세요 ! : ");
+		String userPw = sc.nextLine();
 		
+		return userPw;
+	}
+	
+	public void inputjoin(MemberDTO m) {
+		System.out.println("회원가입을 진행합니다");
+		
+		System.out.println("사용할 아이디를 입력해주세요 : ");
+		m.setMemId(sc.nextLine());
+		System.out.println("사용할 비밀번호를 입력해주세요 : ");
+		m.setMemPw(sc.nextLine());
+		System.out.println("이름을 입력해주세요 : ");
+		m.setMemName(sc.nextLine());
+		System.out.println("전화번호를 입력해주세요 : ");
+		m.setMemPhoneNo(sc.nextLine());
+		System.out.println("이메일을 입력해주세요 : ");
+		m.setMemEmail(sc.nextLine());
 	}
 //	----------------------------------------------
 	
@@ -168,7 +190,9 @@ public class MovieView {
 		return reserv;	
 		}
 
+
 	public String selectDate() { // 상영하고 싶은 날짜 선택
+
 		
 		System.out.print("상영하고 싶은 날짜를 선택해주세요 : ");
 		 
@@ -176,15 +200,15 @@ public class MovieView {
 	}
 	
 
-	public void myReservation(List<ReservationDTO> list) { // 2-2. 내 예매 내역 확인하기
+	public void myReservation(List<joinDTO> list) { // 2-2. 내 예매 내역 확인하기
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
 		
-//		System.out.println("내 예매 내역 조회"); // 일단 나중에 join 완성되면 
-//		for (ReservationDTO m : list) {
-//			System.out.println(m.get() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
-//		}
+		System.out.println("내 예매 내역 조회"); 
+		for (joinDTO m : list) {
+			System.out.println(m.getRevNum() + ", " + m.getMvTitle() + " , " + m.getRevShowDate() + ", " + m.getRevRegDate() + " , " + m.getMvLocation());
+		}
 	}
 
 	public void editReservation(List<MovieDTO> list) { // 2-3. 내 예매 수정하기
@@ -194,13 +218,12 @@ public class MovieView {
 		System.out.println("내 예매 수정하기");
 	}
 
-	public ReservationDTO cancelReservation(List<ReservationDTO> list) { // 2-4. 예매 취소하기
+	public int cancelReservation(List<joinDTO> list) { // 2-4. 예매 취소하기
 		
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
 		
-		ReservationDTO reserv = null;
 	
 		System.out.println("예매 취소하기");
 		
@@ -208,14 +231,13 @@ public class MovieView {
 		int select = sc.nextInt();
 		sc.nextLine();
 		
-		for(ReservationDTO m : list) {
+		for(joinDTO m : list) {
 			if(m.getRevNum() == select)
 			{
-				reserv = m;
-				break;
+				return m.getRevNum();
 			}
 		}
-		return reserv;
+		return 0;
 		
 	}
 
