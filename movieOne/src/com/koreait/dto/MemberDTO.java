@@ -13,7 +13,6 @@ public class MemberDTO {
 //			);
 
 	
-	
 	private int memNum;
 	private String memId;
 	private String memPw;
