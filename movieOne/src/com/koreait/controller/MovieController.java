@@ -1,5 +1,6 @@
 package com.koreait.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import com.koreait.dao.MemberDAO;
@@ -240,17 +241,31 @@ public class MovieController {
 		view.myReservation(list);
 	}
 
-	// 영화 예매
+	/**
+	 * @author 창훈
+	 * @since jdk17
+	 * <p> 영화 예매에 대한 메서드입니다. </p>
+	 */
 	private void movieRes() {
-//      ReservationDTO dto = view.inputReservation();
-		ReservationDTO dto = view.doReservation();
-		dto.setMemNum(loginUser.getMemNum());
-//         영화 존재여부 체크
-//         if (!mvDAO.existsMovie(dto.getMvNum())) {
-//              view.msg("없는 영화입니다.");
-//              return;
-//          }
-		boolean result = resDAO.insert(dto);
+		// 영화목록 호출
+		List<MovieDTO> lstMovie = mvDAO.movieList();
+		// 영화 선택
+		MovieDTO movieDto = view.doReservation(lstMovie);
+		// 선택한 영화가 존재하는지 여부 체크
+		if(movieDto == null) {
+			view.msg("영화 선택이 잘못되었습니다.");
+			return;
+		}
+		// 예매 DTO 생성
+		ReservationDTO newReservation = new ReservationDTO();
+		// 예매 DTO 값 대입
+		newReservation.setMemNum(this.loginUser.getMemNum());
+		newReservation.setMvNum(movieDto.getMvNum());
+		newReservation.setRevRegDate(LocalDate.now().toString());
+		newReservation.setRevShowDate(view.inputDate());
+		// 예매 테이블에 insert
+		boolean result = resDAO.reservation(newReservation);
+		// 결과 출력
 		view.msg(result ? "예매 성공" : "예매 실패");
 	}
 

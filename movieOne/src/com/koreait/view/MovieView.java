@@ -267,6 +267,13 @@ public class MovieView {
 		sc.nextLine();
 		return choice;
 	}
+	
+//	----------------------------------------------------
+	
+	public String inputDate() {
+		System.out.println("날짜를 입력해주세요.");
+		return sc.nextLine();
+	}
 
 //	----------------------------------------------------
 	
