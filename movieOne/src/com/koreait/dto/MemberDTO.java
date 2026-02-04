@@ -11,6 +11,7 @@ public class MemberDTO {
 //			   CONSTRAINT PK_MEM_NUM PRIMARY KEY(MEM_NUM),
 //			   CONSTRAINT UK_MEM_EMAIL UNIQUE (MEM_EMAIL)
 //			);
+
 	
 	private int memNum;
 	private String memId;
