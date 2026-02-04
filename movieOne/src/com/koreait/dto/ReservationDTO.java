@@ -16,56 +16,42 @@ public class ReservationDTO {
 	private int memNum;
 	private String revRegDate;
 	private String revShowDate;
-	
-	
-	
 	public int getRevNum() {
 		return revNum;
 	}
-
 	public void setRevNum(int revNum) {
 		this.revNum = revNum;
 	}
-
 	public int getMvNum() {
 		return mvNum;
 	}
-
 	public void setMvNum(int mvNum) {
 		this.mvNum = mvNum;
 	}
-
 	public int getMemNum() {
 		return memNum;
 	}
-
 	public void setMemNum(int memNum) {
 		this.memNum = memNum;
 	}
-
 	public String getRevRegDate() {
 		return revRegDate;
 	}
-
 	public void setRevRegDate(String revRegDate) {
 		this.revRegDate = revRegDate;
 	}
-
 	public String getRevShowDate() {
 		return revShowDate;
 	}
-
 	public void setRevShowDate(String revShowDate) {
 		this.revShowDate = revShowDate;
 	}
-
-	
-	
 	@Override
 	public String toString() {
-		return "ReservaionDTO [revNum=" + revNum + ", mvNum=" + mvNum + ", memNum=" + memNum + ", revRegDate="
+		return "ReservationDTO [revNum=" + revNum + ", mvNum=" + mvNum + ", memNum=" + memNum + ", revRegDate="
 				+ revRegDate + ", revShowDate=" + revShowDate + "]";
 	}
+	
 	
 	
 }
