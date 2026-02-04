@@ -21,7 +21,7 @@ public class MovioDAO {
 	
 	//영화조회 메소드 > 영화의 전체 리스트를 보여주는 것으로 합의
 	
-	public List<MovieDTO> movieList(MovieDTO movieDTO) {
+	public List<MovieDTO> movieList() {
 		
 		List<MovieDTO> list = new ArrayList<>();
 		

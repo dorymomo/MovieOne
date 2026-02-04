@@ -3,7 +3,9 @@ package com.koreait.view;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
+import com.koreait.dto.ReservationDTO;
 
 public class MovieView {
 
@@ -24,6 +26,13 @@ public class MovieView {
 		return choice;
 	}
 
+	public void inputlogin() {
+		
+	}
+	
+	public void inputjoin() {
+		
+	}
 //	----------------------------------------------
 	
 	public int mainMenu() {
@@ -83,14 +92,30 @@ public class MovieView {
 		System.out.println("영화 장르로 찾기");
 	}
 
-	public void addMovie(String newMv) { // 1-3. 영화 추가하기
-//		if() > 이미 영화 리스트에 있으면 추가 못하는거
-		System.out.println("영화 추가하기");
+	public MovieDTO addMovie() { // 1-3. 영화 추가하기
+		MovieDTO m = new MovieDTO();
+		
+		System.out.print("추가할 영화의 제목을 입력해주세요 : ");
+		m.setMvTitle(sc.nextLine());
+		System.out.print("추가할 영화의 장르를 입력해주세요 : ");
+		m.setMvGenre(sc.nextLine());
+		System.out.print("추가할 영화의 가격을 입력해주세요 : ");
+		m.setMvPrice(sc.nextInt());
+		sc.nextLine();
+		System.out.print("추가할 영화의 상영관을 입력해주세요 : ");
+		m.setMvLocation(sc.nextLine());
+		
+		return m;
 	}
 
-	public void deleteMovie(String delMv) { // 1-4. 영화 삭제하기
-//		if() > 리스트에 없는 영화면 삭제 불가
+	public String deleteMovie() { // 1-4. 영화 삭제하기
 		System.out.println("영화 삭제하기");
+		
+		System.out.print("삭제할 영화의 제목을 입력해주세요 : ");
+		String mvTitle = sc.nextLine();
+		
+		
+		return mvTitle;
 	}
 
 //	-------------------------------------
@@ -109,18 +134,37 @@ public class MovieView {
 
 	}
 
-	public void doReservation(List<MovieDTO> list) { // 2-1. 영화 예매하기
+	public MovieDTO doReservation(List<MovieDTO> list) { // 2-1. 영화 예매하기
 		if(list.isEmpty()) {
-			System.out.println("예매 가능한 영화가 없습니다!");
+			System.out.println("예매 가능한 영화가 없습니다");
 		}
+		MovieDTO reserv = null;
 		System.out.println("영화 예매하기");
-	}
+		
+		System.out.println("예매하고 싶은 영화명을 입력해주세요");
+		String title = sc.nextLine();
+		
+		for(MovieDTO m : list) {
+			if(m.getMvTitle().equals(title))
+			{
+				reserv = m;
+				break;
+			}
+		}
+		return reserv;	
+		}
+		
+	
 
-	public void myReservation(List<MovieDTO> list) { // 2-2. 내 예매 내역 확인하기
+	public void myReservation(List<ReservationDTO> list) { // 2-2. 내 예매 내역 확인하기
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
-		System.out.println("내 예매 내역 조회");
+		
+//		System.out.println("내 예매 내역 조회"); // 일단 나중에 join 완성되면 
+//		for (ReservationDTO m : list) {
+//			System.out.println(m.get() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
+//		}
 	}
 
 	public void editReservation(List<MovieDTO> list) { // 2-3. 내 예매 수정하기
@@ -130,21 +174,43 @@ public class MovieView {
 		System.out.println("내 예매 수정하기");
 	}
 
-	public void cancelReservation(List<MovieDTO> list) { // 2-4. 예매 취소하기
+	public ReservationDTO cancelReservation(List<ReservationDTO> list) { // 2-4. 예매 취소하기
+		
 		if(list.isEmpty()) {
-			System.out.println("취소할 예매가 없습니다!");
+			System.out.println("예매 내역이 없습니다!");
 		}
+		
+		ReservationDTO reserv = null;
+	
 		System.out.println("예매 취소하기");
+		
+		System.out.println("취소하고 싶은 예매번호를 입력해주세요");
+		int select = sc.nextInt();
+		sc.nextLine();
+		
+		for(ReservationDTO m : list) {
+			if(m.getRevNum() == select)
+			{
+				reserv = m;
+				break;
+			}
+		}
+		return reserv;
+		
 	}
 
 //	-----------------------------------------------------
 
-	public void userChange() { // 3. 회원 정보 수정하기
+	public MemberDTO userChange() { // 3. 회원 정보 수정하기
+		MemberDTO mem = new MemberDTO();
+		
 		System.out.println("----회원 정보 수정----");
 		System.out.print("변경할 이메일을 입력하세요 : ");
-		sc.nextLine();
+		mem.setMemEmail(sc.nextLine());
 		System.out.print("변경할 전화번호를 입력하세요 : ");
-		sc.nextLine();
+		mem.setMemPhoneNo(sc.nextLine());
+		
+		return mem;
 	}
 
 //	----------------------------------------------------
