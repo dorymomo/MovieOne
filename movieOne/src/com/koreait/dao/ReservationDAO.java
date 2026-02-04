@@ -20,7 +20,7 @@ public class ReservationDAO {
 	// 예매 조회
 	public List<joinDTO> reservationInfo(int memNum) {
 
-		String query = "SELECT tmv.MV_TITLE, tm.MEM_NAME, tmv.MV_LOCATION, " + "tr.REV_REG_DATE, tr.REV_SHOW_DATE "
+		String query = "SELECT tmv.MV_TITLE, tm.MEM_NUM, tmv.MV_LOCATION, " + "tr.REV_REG_DATE, tr.REV_SHOW_DATE, "
 				+ "tr.REV_NUM  FROM TBL_RESERVATION tr " + "JOIN tbl_member tm ON tr.MEM_NUM = tm.MEM_NUM "
 				+ "JOIN tbl_movie tmv ON tr.MV_NUM = tmv.MV_NUM " + "WHERE tr.MEM_NUM = ?";
 
@@ -77,10 +77,11 @@ public class ReservationDAO {
 
 		try {
 			connection = DBConnector.getConnection();
+			System.out.println(dto);
 			preparedStatement = connection.prepareStatement(query);
-			preparedStatement.setInt(1, dto.getRevNum());
-			preparedStatement.setInt(2, dto.getMvNum());
-			preparedStatement.setDate(3, java.sql.Date.valueOf(dto.getRevShowDate()));
+			preparedStatement.setInt(1, dto.getMvNum());
+			preparedStatement.setInt(2, dto.getMemNum());
+			preparedStatement.setDate(3, Date.valueOf(dto.getRevShowDate()));
 
 			int result = preparedStatement.executeUpdate();
 
@@ -140,7 +141,7 @@ public class ReservationDAO {
 	}
 
 	// 취소
-	public boolean cancel(ReservationDTO dto) {
+	public boolean cancel(int revNum, int memNum) {
 		String query = "DELETE FROM TBL_RESERVATION WHERE REV_NUM = ? AND MEM_NUM = ?";
 		int result = 0;
 
@@ -148,8 +149,8 @@ public class ReservationDAO {
 			connection = DBConnector.getConnection();
 			preparedStatement = connection.prepareStatement(query);
 
-			preparedStatement.setInt(1, dto.getRevNum());
-			preparedStatement.setInt(2, dto.getMemNum());
+			preparedStatement.setInt(1, revNum);
+			preparedStatement.setInt(2, memNum);
 			result = preparedStatement.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("query 오류");

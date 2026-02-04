@@ -26,7 +26,7 @@ public class MovieView {
 		return choice;
 	}
 
-	public String inputId(MemberDTO m) {
+	public String inputId() {
 		System.out.println("아이디를 입력해주세요! : ");
 		String userId = sc.nextLine();
 		
@@ -54,6 +54,7 @@ public class MovieView {
 		m.setMemPhoneNo(sc.nextLine());
 		System.out.println("이메일을 입력해주세요 : ");
 		m.setMemEmail(sc.nextLine());
+		
 	}
 //	----------------------------------------------
 	
@@ -107,11 +108,13 @@ public class MovieView {
 		});
 	}
 //	----------------------------------------------------
-	public void findMovieWithGenre(List<MovieDTO> list) { // 1-2. 영화 장르로 찾기
-		if(list.isEmpty()) {
-			System.out.println("검색 결과가 없습니다!");
-		}
+	public String findMovieWithGenre() { // 1-2. 영화 장르로 찾기
+		
 		System.out.println("영화 장르로 찾기");
+		System.out.println("찾고 싶은 장르를 입력해주세요 : ");
+		String t = sc.nextLine();
+	
+		return t;
 	}
 
 	public MovieDTO addMovie() { // 1-3. 영화 추가하기
@@ -191,10 +194,10 @@ public class MovieView {
 		}
 
 
-	public String selectDate() { // 상영하고 싶은 날짜 선택
+	public String selectDate(String str) { // 상영하고 싶은 날짜 선택
 
 		
-		System.out.print("상영하고 싶은 날짜를 선택해주세요 : ");
+		System.out.print(str);
 		 
 		return sc.nextLine();
 	}
@@ -211,11 +214,14 @@ public class MovieView {
 		}
 	}
 
-	public void editReservation(List<MovieDTO> list) { // 2-3. 내 예매 수정하기
-		if(list.isEmpty()) {
-			System.out.println("수정할 예매가 없습니다!");
-		}
+	public int editReservation() { // 2-3. 내 예매 수정하기
+		
 		System.out.println("내 예매 수정하기");
+		System.out.println("수정할 예매 번호를 선택해주세요 ! ");
+		int select = sc.nextInt();
+		sc.nextLine();
+		return select;
+		
 	}
 
 	public int cancelReservation(List<joinDTO> list) { // 2-4. 예매 취소하기
@@ -241,6 +247,8 @@ public class MovieView {
 		
 	}
 
+	
+	
 //	-----------------------------------------------------
 
 	public MemberDTO userChange() { // 3. 회원 정보 수정하기
@@ -268,14 +276,7 @@ public class MovieView {
 		return choice;
 	}
 	
-//	----------------------------------------------------
-	
-	public String inputDate() {
-		System.out.println("날짜를 입력해주세요.");
-		return sc.nextLine();
-	}
-
-//	----------------------------------------------------
+	//	----------------------------------------------------
 	
 	// 메시지 출력 메소드
 	public void msg(String msg) {

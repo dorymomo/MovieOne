@@ -97,7 +97,7 @@ public class MemberDAO {
 		// 쿼리문 작성
 		// 22
 		String query = "INSERT INTO TBL_MEMBER " + "(MEM_NUM, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONENO, MEM_EMAIL) "
-				+ "VALUES (SEQ_MEM.NEXTVAL, ?, ?, ?, ?, ?)";
+				+ "VALUES (seq_member.NEXTVAL, ?, ?, ?, ?, ?)";
 
 		// 실행 결과를 저장하기 위한 변수선언입니다.
 		int result = 0;

@@ -114,20 +114,20 @@ public class MovieController {
 
 			switch (menu) {
 			case 1:
-				// 예매조회
-				selectRes();
-				break;
-			case 2:
 				// 영화예매
 				movieRes();
 				break;
-			case 3:
-				// 예매취소
-				cancelRes();
+			case 2:
+				// 예매조회
+				selectRes();
 				break;
-			case 4:
+			case 3:
 				// 예매수정
 				updateRes();
+				break;
+			case 4:
+				// 예매취소
+				cancelRes();
 				break;
 			case 0:
 				return;
@@ -139,11 +139,12 @@ public class MovieController {
 
 	// 로그인
 	private void login() {
-		MemberDTO dto = view.inputlogin();
-		MemberDTO user = memDAO.login(dto.getMemId(), dto.getMemPw());
+		String id = view.inputId();
+		String pw = view.inputPw();
+		MemberDTO user = memDAO.login(id,pw);
 		if (user != null) {
 			loginUser = user;
-			view.msg("로그인 성공!! " + dto.getMemName() + "님 환영합니다.");
+			view.msg("로그인 성공!! " + user.getMemName() + "님 환영합니다.");
 			checkMenu();
 		} else {
 			view.msg("로그인 실패");
@@ -152,7 +153,8 @@ public class MovieController {
 
 //   회원가입 
 	private void signUp() {
-		MemberDTO dto = view.inputjoin();
+		MemberDTO dto = new MemberDTO();
+		view.inputjoin(dto);
 		boolean result = memDAO.join(dto);
 
 		if (result) {
@@ -215,15 +217,15 @@ public class MovieController {
 
 	// 장르 조회
 	private void selectGenre() {
-		List<MovieDTO> list = mvDAO.selectGenres();
-		view.findMovieWithGenre(list);
+		List<MovieDTO> list = mvDAO.mvGenreList(view.findMovieWithGenre());
+		view.showMovieList(list); // 장르 입력 , 총 영화 출력, 장르가 담긴 리스트 
 	}
 
 	// 영화 추가
 	private void addMovie() {
 //      MovieDTO dto = view.inputAddMovie();
 		MovieDTO dto = view.addMovie();
-		boolean result = mvDAO.insertMovie(dto);
+		boolean result = mvDAO.mvInsert(dto);
 		view.msg(result ? "영화추가 성공" : "영화추가 실패");
 	}
 
@@ -250,7 +252,7 @@ public class MovieController {
 		// 영화목록 호출
 		List<MovieDTO> lstMovie = mvDAO.movieList();
 		// 영화 선택
-		MovieDTO movieDto = view.doReservation(lstMovie);
+		MovieDTO movieDto = view.movieSelect(lstMovie);
 		// 선택한 영화가 존재하는지 여부 체크
 		if(movieDto == null) {
 			view.msg("영화 선택이 잘못되었습니다.");
@@ -262,7 +264,7 @@ public class MovieController {
 		newReservation.setMemNum(this.loginUser.getMemNum());
 		newReservation.setMvNum(movieDto.getMvNum());
 		newReservation.setRevRegDate(LocalDate.now().toString());
-		newReservation.setRevShowDate(view.inputDate());
+		newReservation.setRevShowDate(view.selectDate("상영하고 싶은 날짜를 선택해주세요 : "));
 		// 예매 테이블에 insert
 		boolean result = resDAO.reservation(newReservation);
 		// 결과 출력
@@ -271,19 +273,18 @@ public class MovieController {
 
 	// 예매 취소
 	private void cancelRes() {
-//		ReservationDTO dto = view.inputCancelRes();
-		ReservationDTO dto = view.cancelReservation();
-		dto.setMemNum(loginUser.getMemNum());
-		boolean result = resDAO.cancel(dto);
+		int number = view.cancelReservation(resDAO.reservationInfo(this.loginUser.getMemNum()));
+		boolean result = resDAO.cancel(number, loginUser.getMemNum());
 		view.msg(result ? "예매취소 성공" : "예매취소 실패");
 	}
 
 	// 예매 수정
 	private void updateRes() {
 //		ReservationDTO dto = view.inputUpdateShowDate();
-		ReservationDTO dto = view.editReservation();
+		ReservationDTO dto = new ReservationDTO();
+		dto.setRevNum(view.editReservation());		
 		dto.setMemNum(loginUser.getMemNum());
-
+		dto.setRevShowDate(view.selectDate("변경하실 날짜를 입력해주세요. :"));
 		boolean result = resDAO.updateShowDate(dto);
 		view.msg(result ? "예매수정 성공" : "예매수정 실패");
 	}

@@ -23,7 +23,6 @@ public class DBConnector
 			
 			connection = DriverManager.getConnection(url, userName, password);
 			// SQLException 연결 정보가 잘못 되었을 때 연결 정보 예외
-			System.out.println("연결 성공");
 		}
 		catch (ClassNotFoundException e)
 		{

@@ -176,7 +176,7 @@ public class MovioDAO {
 		 */
 
 		   public boolean mvInsert(MovieDTO movieDTO) {
-			      String query = "INSERT INTO tbl_movie" + "VALUES (SEQ_STUDENT.NEXTVAL, ?, ?, ?, ?)";
+			      String query = "INSERT INTO tbl_movie " + "VALUES (seq_movie.NEXTVAL, ?, ?, ?, ?)";
 			      int result = 0;
 
 			      try {
