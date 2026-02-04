@@ -12,6 +12,65 @@ public class MemberDAO {
 	Connection connection;
 	PreparedStatement preparedStatement;
 	ResultSet resultSet;
+	
+	
+	
+	//김성민 아이디 중복검사
+	/**
+	 * @author 성민
+	 * @param memId : 매개변수로 사용자가 입력한 값을 받아온다
+	 * @return boolean : 아이디가 중복한지 안한지 true false로 반환하기 위해 불린형으로 했습니다
+	 *         <p>
+	 *         아이디 중복검사 메서드입니다 아이디를 전달받아 중복한지 확인합니다.
+	 *         </p>
+	 */
+	
+	public boolean checkID(String memId) {
+		 // 문자열로 쿼리문 작성한다
+		 String query = "SELECT  mem_num FROM TBL_member WHERE member_ID = ?";
+		 
+		 try {
+				connection = DBConnector.getConnection();
+				preparedStatement = connection.prepareStatement(query);
+				
+				preparedStatement.setString(1, memId);
+				resultSet = preparedStatement.executeQuery();
+				
+				  if (resultSet.next()) {
+			            return false; // 이미 아이디가 존재한다
+				    }
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         System.out.println("checkId() sql 오류!!");
+	         e.printStackTrace();
+	      } finally {
+	         try {
+	            if (resultSet != null) {
+	               resultSet.close();
+	            }
+
+	            if (preparedStatement != null) {
+	               preparedStatement.close();
+	            }
+
+	            if (connection != null) {
+	               connection.close();
+	            }
+	         } catch (SQLException e) {
+	            // TODO Auto-generated catch block
+	            System.out.println("checkId() 연결 해제 오류");
+	            e.printStackTrace();
+	         }
+	      }
+
+	      return true; // 중복된 아이디가 없음을 의미
+
+	   }
+	
+	
+	
+	
+	
 
 	// 김성민 회원 가입, 로그인
 	/**
@@ -82,12 +141,12 @@ public class MemberDAO {
 
 	// 로그인 기능을 담당하는 메소드입니다.
 	// 매개변수로 아이디와 비밀번호를 받아 로그인이 정상적으로 가능한지 확인합니다.
-	public String login(String memId, String memPw) {
+	public MemberDTO login(String memId, String memPw) {
 
 		// 아이디와 비밀번호가 맞는지 확인하는 쿼리
-		String query = "SELECT MEM_NAME FROM TBL_MEMBER WHERE MEM_ID = ? AND MEM_PW = ?";
+		String query = "SELECT MEM_NUM, MEM_ID, MEM_PW, MEM_NAME, MEM_PHONENO, MEM_EMAIL FROM TBL_MEMBER WHERE MEM_ID = ? AND MEM_PW = ?";
 		// 결과를 저장하는 변수를 선언합니다 기본값은 NULL값으로 했습니다.
-		String name = null;
+		MemberDTO user = null;
 		// DB와 연결을 하기위한 코드입니다.
 		try {
 			connection = DBConnector.getConnection();
@@ -97,9 +156,15 @@ public class MemberDAO {
 			preparedStatement.setString(2, memPw);
 			// 결과를 ResultSet에 저장합니다.
 			resultSet = preparedStatement.executeQuery();
-			// 로그인이 성공적으로 확인되면 회원 이름을 가져와서 NAME변수에 저장합니다.
+			// 로그인이 성공적으로 확인되면 회원 모든 정보를 가져와서 user변수에 저장합니다.
 			if (resultSet.next()) {
-				name = resultSet.getString(1);
+			     user = new MemberDTO(); // 객체 생성
+		         user.setMemNum(resultSet.getInt("MEM_NUM"));
+		         user.setMemId(resultSet.getString("MEM_ID"));
+		         user.setMemPw(resultSet.getString("MEM_PW"));
+		         user.setMemName(resultSet.getString("MEM_NAME"));
+		         user.setMemPhoneNo(resultSet.getString("MEM_PHONENO"));
+		         user.setMemEmail(resultSet.getString("MEM_EMAIL"));
 			}
 
 		} catch (SQLException e) {
@@ -122,7 +187,7 @@ public class MemberDAO {
 			}
 		}
 
-		return name;
+		return user;
 	}
 
 	/**
