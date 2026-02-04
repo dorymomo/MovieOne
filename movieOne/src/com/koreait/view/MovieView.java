@@ -6,6 +6,7 @@ import java.util.Scanner;
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
 import com.koreait.dto.ReservationDTO;
+import com.koreait.dto.joinDTO;
 
 public class MovieView {
 
@@ -178,15 +179,15 @@ public class MovieView {
 		
 	
 
-	public void myReservation(List<ReservationDTO> list) { // 2-2. 내 예매 내역 확인하기
+	public void myReservation(List<joinDTO> list) { // 2-2. 내 예매 내역 확인하기
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
 		
-//		System.out.println("내 예매 내역 조회"); // 일단 나중에 join 완성되면 
-//		for (ReservationDTO m : list) {
-//			System.out.println(m.get() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
-//		}
+		System.out.println("내 예매 내역 조회"); 
+		for (joinDTO m : list) {
+			System.out.println(m.get() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
+		}
 	}
 
 	public void editReservation(List<MovieDTO> list) { // 2-3. 내 예매 수정하기
@@ -196,13 +197,12 @@ public class MovieView {
 		System.out.println("내 예매 수정하기");
 	}
 
-	public ReservationDTO cancelReservation(List<ReservationDTO> list) { // 2-4. 예매 취소하기
+	public int cancelReservation(List<joinDTO> list) { // 2-4. 예매 취소하기
 		
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
 		
-		ReservationDTO reserv = null;
 	
 		System.out.println("예매 취소하기");
 		
@@ -210,14 +210,13 @@ public class MovieView {
 		int select = sc.nextInt();
 		sc.nextLine();
 		
-		for(ReservationDTO m : list) {
+		for(joinDTO m : list) {
 			if(m.getRevNum() == select)
 			{
-				reserv = m;
-				break;
+				return reserv;
 			}
 		}
-		return reserv;
+		return null;
 		
 	}
 
