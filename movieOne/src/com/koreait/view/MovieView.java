@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
-import com.koreait.dto.ReservationDTO;
 import com.koreait.dto.joinDTO;
 
 public class MovieView {
@@ -176,6 +175,7 @@ public class MovieView {
 		}
 		return reserv;	
 		}
+	
 		
 	
 
@@ -186,7 +186,7 @@ public class MovieView {
 		
 		System.out.println("내 예매 내역 조회"); 
 		for (joinDTO m : list) {
-			System.out.println(m.get() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
+			System.out.println(m.getRevNum() + ", " + m.getMvTitle() + " , " + m.getRevShowDate() + ", " + m.getRevRegDate() + " , " + m.getMvLocation());
 		}
 	}
 
@@ -213,10 +213,10 @@ public class MovieView {
 		for(joinDTO m : list) {
 			if(m.getRevNum() == select)
 			{
-				return reserv;
+				return m.getRevNum();
 			}
 		}
-		return null;
+		return 0;
 		
 	}
 
