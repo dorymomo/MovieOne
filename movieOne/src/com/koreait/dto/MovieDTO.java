@@ -14,6 +14,7 @@ public class MovieDTO {
 	private String mvTitle;
 	private String mvGenre;
 	private int mvPrice;
+	private String mvLocation;
 	
 	
 	
