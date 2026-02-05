@@ -181,7 +181,7 @@ public class MovieController {
 
 		boolean ckId = memDAO.checkID(dto.getMemId());
 		if (!ckId) {
-			view.msg("이미 사용 중인 아이디입니다.");
+			view.msg("이미 사용 중인 아이디입니다. 다시 회원가입 해주세요!");
 			return;
 		}
 

@@ -18,6 +18,7 @@ public class MemberDAO {
 	//김성민 아이디 중복검사
 	/**
 	 * @author 성민
+	 * @since jdk 17
 	 * @param memId : 매개변수로 사용자가 입력한 값을 받아온다
 	 * @return boolean : 아이디가 중복한지 안한지 true false로 반환하기 위해 불린형으로 했습니다
 	 *         <p>
@@ -27,7 +28,7 @@ public class MemberDAO {
 	
 	public boolean checkID(String memId) {
 		 // 문자열로 쿼리문 작성한다
-		 String query = "SELECT mem_num FROM TBL_member WHERE member_ID = ?";
+		 String query = "SELECT mem_num FROM TBL_member WHERE MEM_ID = ?";
 		 
 		// DB와 연결을 하기위한 코드입니다.
 		 try {
@@ -82,6 +83,7 @@ public class MemberDAO {
 	// 김성민 회원 가입, 로그인
 	/**
 	 * @author 성민
+	 * @since jdk 17
 	 * @param member : 회원정보를 담고있는 DTO객체
 	 * @return boolean : 회원가입 성공 여부를 TRUE / FALSE
 	 *         <p>
@@ -141,6 +143,7 @@ public class MemberDAO {
 	// 로그인 메소드
 	/**
 	 * @author 성민
+	 * @since jdk 17
 	 * @param memId 회원 아이디
 	 * @param memPw 회원 비밀번호
 	 * @return String 로그인 성공 시 회원 이름, 실패 시 null 반환

@@ -11,6 +11,8 @@ import com.koreait.dto.MovieDTO;
 
 //- 준승  영화조회, 영화삭제    
 //view : 준승
+
+
 public class MovieDAO {
 	
 	public Connection connection;
@@ -19,7 +21,13 @@ public class MovieDAO {
 	
 	
 	
-	//영화조회 메소드 > 영화의 전체 리스트를 보여주는 것으로 합의
+	/** 
+	 * @author 이준승
+	 * @since jdk-17
+	 * @return list : 쿼리문으로 조회해서 얻은 결과값인 MovieDTO의 객체가 담긴 리스트
+	 * 
+	 * <p>전체 영화 목록을 보여주는 메소드</p>
+	 */
 	
 	public List<MovieDTO> movieList() {
 		
@@ -72,6 +80,14 @@ public class MovieDAO {
 		
 	}
 	
+	/** 
+	 * @author 이준승
+	 * @param mvTitle : 영화 제목
+	 * @since jdk-17
+	 * @return boolean : 영화삭제에 성공했다면 true, 아니면 false
+	 * 
+	 * <p>전체 영화 목록 중 삭제하려는 영화 제목을 입력해서 삭제하는 메소드</p>
+	 */
 	
 	//영화삭제 메소드
 	public boolean movieDelete(String mvTitle) {
@@ -112,7 +128,7 @@ public class MovieDAO {
 	 * @param movieDTO
 	 * @author ktw
 	 * @since jdk-17
-	 * @return boolean
+	 * @return List<MovieDTO>
 	 * 
 	 * <p>영화 장르 조회(장르를 검색시에 해당 카테고리에 있는 영화 리스트 반환)
 	 *  입력을 받는걸 만들고, 장르가 반환되게 해야함</p>
@@ -181,7 +197,7 @@ public class MovieDAO {
 			      try {
 			         connection = DBConnector.getConnection();
 			         preparedStatement = connection.prepareStatement(query);
-			         // ?바인딩
+			         // 바인딩
 			         preparedStatement.setString(1, movieDTO.getMvTitle());
 			         preparedStatement.setString(2, movieDTO.getMvGenre());
 			         preparedStatement.setInt(3, movieDTO.getMvPrice());
