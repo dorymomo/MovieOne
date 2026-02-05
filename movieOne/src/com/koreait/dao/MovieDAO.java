@@ -112,7 +112,7 @@ public class MovieDAO {
 	 * @param movieDTO
 	 * @author ktw
 	 * @since jdk-17
-	 * @return boolean
+	 * @return List<MovieDTO>
 	 * 
 	 * <p>영화 장르 조회(장르를 검색시에 해당 카테고리에 있는 영화 리스트 반환)
 	 *  입력을 받는걸 만들고, 장르가 반환되게 해야함</p>
@@ -181,7 +181,7 @@ public class MovieDAO {
 			      try {
 			         connection = DBConnector.getConnection();
 			         preparedStatement = connection.prepareStatement(query);
-			         // ?바인딩
+			         // 바인딩
 			         preparedStatement.setString(1, movieDTO.getMvTitle());
 			         preparedStatement.setString(2, movieDTO.getMvGenre());
 			         preparedStatement.setInt(3, movieDTO.getMvPrice());
