@@ -1,5 +1,6 @@
 package com.koreait.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.koreait.dao.MemberDAO;
@@ -36,21 +37,28 @@ public class MovieController {
 	// 메인 시작
 	public void run() {
 		while (true) {
-			int menu = view.loginMenu();
+			try {
+				int menu = view.loginMenu();
 
-			switch (menu) {
-			case 1:
-				//로그인
-				login();
-				break;
-			case 2:
-				//회원가입
-				signUp();
-				break;
-			case 0:
-				return;
-			default:
+				switch (menu) {
+				case 1:
+					// 로그인
+					login();
+					break;
+				case 2:
+					// 회원가입
+					signUp();
+					break;
+				case 0:
+					return;
+				default:
+					view.msg("정해진 숫자를 입력해주세요");
+				}
+			} catch (NumberFormatException e) {
 				view.msg("숫자를 입력해주세요");
+			}
+			catch(Exception e) {
+				view.msg("run() 알 수 없는 오류 발생");
 			}
 		}
 	}
@@ -59,31 +67,39 @@ public class MovieController {
 	private void checkMenu() {
 
 		while (true) {
-			int menu = view.mainMenu();
+			try {
+				int menu = view.mainMenu();
 
-			switch (menu) {
-			case 1:
-				// 영화
-				movieckMenu();
-				break;
-			case 2:
-				// 예매
-				resMenu();
-				break;
-			case 3:
-				// 회원 정보수정()
-				updateMember();
-				break;
-			case 4:
-				// 회원탈퇴
-				deleteMember();
-				break;
-			case 0:
-				//로그아웃
-				logout();
-				return;
-			default:
-				view.msg("잘못된 입력입니다.");
+				switch (menu) {
+				case 1:
+					// 영화
+					movieckMenu();
+					break;
+				case 2:
+					// 예매
+					resMenu();
+					break;
+				case 3:
+					// 회원 정보수정()
+					updateMember();
+					break;
+				case 4:
+					// 회원탈퇴
+					deleteMember();
+					break;
+				case 0:
+					//로그아웃
+					logout();
+					return;
+				default:
+					view.msg("잘못된 입력입니다.");
+				}
+			} catch (NumberFormatException e) {
+				view.msg("숫자를 입력해주세요");
+				continue;
+			}
+			catch(Exception e) {
+				view.msg("checkMenu() 알 수 없는 오류 발생");
 			}
 		}
 	}
@@ -92,29 +108,37 @@ public class MovieController {
 	private void movieckMenu() {
 
 		while (true) {
-			int menu = view.movieMenu();
+			try {
+				int menu = view.movieMenu();
 
-			switch (menu) {
-			case 1:
-				// 영화조회
-				selectMoive();
-				break;
-			case 2:
-				// 장르조회
-				selectGenre();
-				break;
-			case 3:
-				// 영화추가
-				addMovie();
-				break;
-			case 4:
-				// 영화삭제
-				deleteMovie();
-				break;
-			case 0:
-				return;
-			default:
-				view.msg("잘못된 입력입니다.");
+				switch (menu) {
+				case 1:
+					// 영화조회
+					selectMoive();
+					break;
+				case 2:
+					// 장르조회
+					selectGenre();
+					break;
+				case 3:
+					// 영화추가
+					addMovie();
+					break;
+				case 4:
+					// 영화삭제
+					deleteMovie();
+					break;
+				case 0:
+					return;
+				default:
+					view.msg("잘못된 입력입니다.");
+				}
+			} catch (NumberFormatException e) {
+				view.msg("숫자를 입력해주세요");
+				continue;
+			}
+			catch(Exception e) {
+				view.msg("movieckMenu() 알 수 없는 오류 발생");
 			}
 		}
 	}
@@ -125,29 +149,37 @@ public class MovieController {
 			return;
 
 		while (true) {
-			int menu = view.showResvMenu();
+			try {
+				int menu = view.showResvMenu();
 
-			switch (menu) {
-			case 1:
-				// 영화예매
-				movieRes();
-				break;
-			case 2:
-				// 예매조회
-				selectRes();
-				break;
-			case 3:
-				// 예매수정
-				updateRes();
-				break;
-			case 4:
-				// 예매취소
-				cancelRes();
-				break;
-			case 0:
-				return;
-			default:
-				view.msg("잘못된 입력입니다.");
+				switch (menu) {
+				case 1:
+					// 영화예매
+					movieRes();
+					break;
+				case 2:
+					// 예매조회
+					selectRes();
+					break;
+				case 3:
+					// 예매수정
+					updateRes();
+					break;
+				case 4:
+					// 예매취소
+					cancelRes();
+					break;
+				case 0:
+					return;
+				default:
+					view.msg("잘못된 입력입니다.");
+				}
+			} catch (NumberFormatException e) {
+				view.msg("숫자를 입력해주세요");
+				continue;
+			}
+			catch(Exception e) {
+				view.msg("resMenu() 알 수 없는 오류 발생");
 			}
 		}
 	}
@@ -296,7 +328,8 @@ public class MovieController {
 	 * <p>영화 예매에 대한 메서드입니다.</p>
 	 */
 	private void movieRes() {
-		// 영화목록 호출
+		try
+		{		// 영화목록 호출
 		List<MovieDTO> lstMovie = mvDAO.movieList();
 		// 영화 선택
 		MovieDTO movieDto = view.movieSelect(lstMovie);
@@ -310,11 +343,19 @@ public class MovieController {
 		// 예매 DTO 값 대입
 		newReservation.setMemNum(this.loginUser.getMemNum());
 		newReservation.setMvNum(movieDto.getMvNum());
-		newReservation.setRevShowDate(view.selectDate("상영하고 싶은 날짜를 선택해주세요 : "));
+		String selecDate = view.selectDate("상영하고 싶은 날짜를 선택해주세요 : ");
+		// 날짜 관련 컨버팅 테스트. 실패 시 예외 발생
+		Date convertTest = Date.valueOf(selecDate);
+		newReservation.setRevShowDate(selecDate);
 		// 예매 테이블에 insert
 		boolean result = resDAO.reservation(newReservation);
 		// 결과 출력
 		view.msg(result ? "예매 성공" : "예매 실패");
+		}
+		catch(IllegalArgumentException e) {
+			view.msg("날짜 입력이 잘못되었습니다.");
+			return;
+		}
 	}
 
 	/**
@@ -323,6 +364,9 @@ public class MovieController {
 	 */
 	private void cancelRes() {
 		int number = view.cancelReservation(resDAO.reservationInfo(this.loginUser.getMemNum()));
+		if(number <= 0) {
+			return;
+		}
 		boolean result = resDAO.cancel(number, loginUser.getMemNum());
 		view.msg(result ? "예매취소 성공" : "예매취소 실패");
 	}
@@ -331,15 +375,22 @@ public class MovieController {
 	 * 사용자가 시청 날짜를 수정
 	 */
 	private void updateRes() {
-		ReservationDTO dto = new ReservationDTO();
-		int num =view.editReservation();
-		String da =view.selectDate("변경하실 날짜를 입력해주세요. :");
-		if(num != 0 && da!=null) {
-			dto.setRevNum(num);
-			dto.setMemNum(loginUser.getMemNum());
-			dto.setRevShowDate(da);
-			boolean result = resDAO.updateShowDate(dto);
-			view.msg(result ? "예매수정 성공" : "예매수정 실패");
+		try {
+			ReservationDTO dto = new ReservationDTO();
+			int num =view.editReservation();
+			String da =view.selectDate("변경하실 날짜를 입력해주세요. :");
+			// 날짜 관련 컨버팅 테스트. 실패 시 예외 발생
+			Date converTest = Date.valueOf(da);
+			if(num != 0 && da!=null) {
+				dto.setRevNum(num);
+				dto.setMemNum(loginUser.getMemNum());
+				dto.setRevShowDate(da);
+				boolean result = resDAO.updateShowDate(dto);
+				view.msg(result ? "예매수정 성공" : "예매수정 실패");
+			}
+		} catch (IllegalArgumentException e) {
+			view.msg("날짜 입력이 잘못되었습니다.");
+			return;
 		}
 		
 	}

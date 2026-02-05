@@ -302,7 +302,7 @@ public class MemberDAO {
 				}
 			} catch (SQLException e) {
 				// 오류 발생시 메시지
-				System.out.println("signOutMember() Connection Close Error");
+				System.out.println("changeEmailAndPhoneNo() Connection Close Error");
 				e.printStackTrace();
 			}
 		}

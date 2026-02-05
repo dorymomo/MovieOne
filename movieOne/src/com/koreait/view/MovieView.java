@@ -25,14 +25,13 @@ public class MovieView {
 	 * 
 	 */
 	
-	public int loginMenu() throws InputMismatchException {
+	public int loginMenu() throws NumberFormatException {
 		System.out.println("안녕하세요!");
 		System.out.println("1. 로그인하기");
 		System.out.println("2. 회원가입하기");
 		System.out.println("0. 종료");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
+		int choice = Integer.parseInt(sc.nextLine());
 		return choice;
 	}
 	/**
@@ -89,7 +88,7 @@ public class MovieView {
 	 * @return int : 사용자가 선택한 메뉴의 정수값
 	 * <p> 사용자가 로그인 성공 시, 메인메뉴를 출력하기 위한 메소드, 선택값에 따라 세부 메뉴를 진행한다</p>
 	 */
-	public int mainMenu() throws InputMismatchException {
+	public int mainMenu() throws NumberFormatException {
 		System.out.println("----메뉴선택----");
 		System.out.println("1. 영화");
 		System.out.println("2. 예매");
@@ -97,8 +96,8 @@ public class MovieView {
 		System.out.println("4. 회원탈퇴");
 		System.out.println("0. 종료");
 		System.out.print("선택 : ");
-		int choice = sc.nextInt();
-		sc.nextLine();
+		int choice = Integer.parseInt(sc.nextLine());
+
 		return choice;
 	}
 
@@ -109,7 +108,7 @@ public class MovieView {
 	 * @return int : 사용자가 선택한 메뉴의 정수값
 	 * <p> 사용자가 영화(1번) 메뉴를 선택했을 때의 영화 메뉴를 출력하기 위한 메소드 </p>
 	 */
-	public int movieMenu() throws InputMismatchException { // 1. 영화 메뉴
+	public int movieMenu() throws NumberFormatException { // 1. 영화 메뉴
 		System.out.println("----영화 메뉴----");
 		System.out.println("1. 전체 영화 보기");
 		System.out.println("2. 영화 장르로 찾기");
@@ -118,8 +117,8 @@ public class MovieView {
 		System.out.println("0. 종료");
 		System.out.println("선택 : ");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
+		int choice = Integer.parseInt(sc.nextLine());
+
 		return choice;
 	}
 
@@ -185,14 +184,13 @@ public class MovieView {
 		System.out.print("추가할 영화의 장르를 입력해주세요 : ");
 		m.setMvGenre(sc.nextLine());
 		System.out.print("추가할 영화의 가격을 입력해주세요 : ");
-		m.setMvPrice(sc.nextInt());
-		sc.nextLine();
+		m.setMvPrice( Integer.parseInt(sc.nextLine()));
 		System.out.print("추가할 영화의 상영관을 입력해주세요 : ");
 		m.setMvLocation(sc.nextLine());
 		
 		return m;
 		}
-		catch(InputMismatchException e) {
+		catch(NumberFormatException e) {
 			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
 			return null;
 		}
@@ -236,7 +234,7 @@ public class MovieView {
 			int choice = sc.nextInt();
 			sc.nextLine();
 			return choice;
-		} catch (InputMismatchException e) {
+		} catch (NumberFormatException e) {
 			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
 			return 0;
 		} catch (Exception e) {
@@ -422,7 +420,7 @@ public int cancelReservationByStream(List<JoinDTO> list) {
 		JoinDTO selectedDTO = list.stream().filter(x->x.getRevNum() == select).findFirst().orElse(null); 
 		return selectedDTO == null ? 0 : selectedDTO.getRevNum();
 		}
-		catch(InputMismatchException e) {
+		catch(NumberFormatException e) {
 			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
 			return 0;
 		}
@@ -466,8 +464,7 @@ public int cancelReservationByStream(List<JoinDTO> list) {
 			System.out.println("1. 네");
 			System.out.println("2. 아니오");
 
-			int choice = sc.nextInt();
-			sc.nextLine();
+			int choice = Integer.parseInt(sc.nextLine());
 			return choice;
 		} catch (NumberFormatException e) {
 			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
