@@ -25,7 +25,7 @@ public class MovieDTO {
 	private int mvPrice;
 	private String mvLocation;
 
-	
+	//데이터 은닉을 유지하면서, 다른 계층에서 안전하게 접근/수정하기 위해 사용
 	
 	public int getMvNum() {
 		return mvNum;
