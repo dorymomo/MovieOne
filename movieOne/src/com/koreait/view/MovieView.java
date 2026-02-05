@@ -25,23 +25,15 @@ public class MovieView {
 	 * 
 	 */
 	
-	public int loginMenu() {
-		try {
-			System.out.println("안녕하세요!");
-			System.out.println("1. 로그인하기");
-			System.out.println("2. 회원가입하기");
-			System.out.println("0. 종료");
+	public int loginMenu() throws InputMismatchException {
+		System.out.println("안녕하세요!");
+		System.out.println("1. 로그인하기");
+		System.out.println("2. 회원가입하기");
+		System.out.println("0. 종료");
 
-			int choice = sc.nextInt();
-			sc.nextLine();
-			return choice;
-		} catch (InputMismatchException e) {
-			System.out.println("잘못된 숫자를 입력하셨습니다 종료합니다.");
-			return 0;
-		} catch (Exception e) {
-			System.out.println("loginMenu() 알 수 없는 오류 발생");
-			return 0;
-		}
+		int choice = sc.nextInt();
+		sc.nextLine();
+		return choice;
 	}
 	/**
 	 * 
@@ -97,25 +89,17 @@ public class MovieView {
 	 * @return int : 사용자가 선택한 메뉴의 정수값
 	 * <p> 사용자가 로그인 성공 시, 메인메뉴를 출력하기 위한 메소드, 선택값에 따라 세부 메뉴를 진행한다</p>
 	 */
-	public int mainMenu() {
-		try {
-			System.out.println("----메뉴선택----");
-			System.out.println("1. 영화");
-			System.out.println("2. 예매");
-			System.out.println("3. 회원 정보 수정");
-			System.out.println("4. 회원탈퇴");
-			System.out.println("0. 종료");
-			System.out.print("선택 : ");
-			int choice = sc.nextInt();
-			sc.nextLine();
-			return choice;
-		} catch (InputMismatchException e) {
-			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
-			return 0;
-		} catch (Exception e) {
-			System.out.println("mainMenu() 알 수 없는 오류 발생");
-			return 0;
-		}
+	public int mainMenu() throws InputMismatchException {
+		System.out.println("----메뉴선택----");
+		System.out.println("1. 영화");
+		System.out.println("2. 예매");
+		System.out.println("3. 회원 정보 수정");
+		System.out.println("4. 회원탈퇴");
+		System.out.println("0. 종료");
+		System.out.print("선택 : ");
+		int choice = sc.nextInt();
+		sc.nextLine();
+		return choice;
 	}
 
 //	-----------------------------------------------
@@ -125,26 +109,18 @@ public class MovieView {
 	 * @return int : 사용자가 선택한 메뉴의 정수값
 	 * <p> 사용자가 영화(1번) 메뉴를 선택했을 때의 영화 메뉴를 출력하기 위한 메소드 </p>
 	 */
-	public int movieMenu() { // 1. 영화 메뉴
-		try {
-			System.out.println("----영화 메뉴----");
-			System.out.println("1. 전체 영화 보기");
-			System.out.println("2. 영화 장르로 찾기");
-			System.out.println("3. 영화 추가");
-			System.out.println("4. 영화 삭제");
-			System.out.println("0. 종료");
-			System.out.println("선택 : ");
+	public int movieMenu() throws InputMismatchException { // 1. 영화 메뉴
+		System.out.println("----영화 메뉴----");
+		System.out.println("1. 전체 영화 보기");
+		System.out.println("2. 영화 장르로 찾기");
+		System.out.println("3. 영화 추가");
+		System.out.println("4. 영화 삭제");
+		System.out.println("0. 종료");
+		System.out.println("선택 : ");
 
-			int choice = sc.nextInt();
-			sc.nextLine();
-			return choice;
-		} catch (InputMismatchException e) {
-			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
-			return 0;
-		} catch (Exception e) {
-			System.out.println("movieMenu() 알 수 없는 오류 발생");
-			return 0;
-		}
+		int choice = sc.nextInt();
+		sc.nextLine();
+		return choice;
 	}
 
 	/**
