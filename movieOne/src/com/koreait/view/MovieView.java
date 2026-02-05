@@ -135,7 +135,7 @@ public class MovieView {
 		}
 		for (MovieDTO m : list) { // list 안에 원소가 있다면 for-each문을 통해 저장된 값 출력
 			System.out.println(
-					m.getMvTitle() + " , " + m.getMvPrice() + " , " + m.getMvGenre() + " , " + m.getMvLocation());
+					"제목 : " + m.getMvTitle() + " , 가격 : " + m.getMvPrice() + " , 장르 : " + m.getMvGenre() + " , 상영관 : " + m.getMvLocation());
 
 		}
 	}
@@ -152,7 +152,7 @@ public class MovieView {
 		}
 		
 		list.stream().forEach(x -> {
-			System.out.println(x.getMvTitle() + ", " + x.getMvPrice() + ", " + x.getMvGenre() + ", " + x.getMvLocation());
+			System.out.println("제목 : " + x.getMvTitle() + ", 가격 : " + x.getMvPrice() + ", 장르 : " + x.getMvGenre() + ", 상영관 : " + x.getMvLocation());
 		});
 	}
 //	----------------------------------------------------
@@ -270,7 +270,7 @@ public class MovieView {
 		System.out.println("현재 상영 가능한 영화");
 		
 		for (MovieDTO m : list) {
-			System.out.println(m.getMvTitle() + ", " + m.getMvPrice() + ", " + m.getMvGenre() + ", " + m.getMvLocation());
+			System.out.println("제목 : " + m.getMvTitle() + ", 가격 : " + m.getMvPrice() + ", 장르 : " + m.getMvGenre() + ", 상영관 : " + m.getMvLocation());
 		}
 		
 		System.out.println("예매하고 싶은 영화명을 입력해주세요");
@@ -333,7 +333,7 @@ public class MovieView {
 		
 		System.out.println("내 예매 내역 조회"); 
 		for (JoinDTO m : list) {
-			System.out.println(m.getRevNum() + ", " + m.getMvTitle() + " , " + m.getRevShowDate() + ", " + m.getRevRegDate() + " , " + m.getMvLocation());
+			System.out.println("예매 번호 : " + m.getRevNum() + ", 제목 : " + m.getMvTitle() + " , 상영일 : " + m.getRevShowDate() + ", 예약일 : " + m.getRevRegDate() + " , 상영관 : " + m.getMvLocation());
 		}
 	}
 	
