@@ -7,9 +7,10 @@ import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
 import com.koreait.dto.JoinDTO;
 /**
- * @author Administrator
- * @since
- * <p> </p>
+ * @author 이준승
+ * @since jdk17
+ * <p> 프로그램을 실행하면서 사용자에게 입, 출력을 받기 위한 클래스
+ * 		세부적인 로직은 들어가지 않고, 오로지 입, 출력에 필요한 기능들로만 구성되어 있다</p>
  * 
  */
 public class MovieView {
