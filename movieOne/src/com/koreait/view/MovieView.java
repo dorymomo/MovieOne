@@ -95,7 +95,7 @@ public class MovieView {
 		System.out.println("2. 예매");
 		System.out.println("3. 회원 정보 수정");
 		System.out.println("4. 회원탈퇴");
-		System.out.println("0. 종료");
+		System.out.println("0. 로그아웃");
 		System.out.print("선택 : ");
 		int choice = Integer.parseInt(sc.nextLine());
 
@@ -115,7 +115,7 @@ public class MovieView {
 		System.out.println("2. 영화 장르로 찾기");
 		System.out.println("3. 영화 추가");
 		System.out.println("4. 영화 삭제");
-		System.out.println("0. 종료");
+		System.out.println("0. 이전메뉴로 돌아가기");
 		System.out.println("선택 : ");
 
 		int choice = Integer.parseInt(sc.nextLine());
@@ -230,7 +230,7 @@ public class MovieView {
 			System.out.println("2. 내 예매 내역");
 			System.out.println("3. 예매 수정");
 			System.out.println("4. 예매 취소");
-			System.out.println("0. 종료");
+			System.out.println("0. 이전메뉴로 돌아가기");
 
 			int choice = sc.nextInt();
 			sc.nextLine();
