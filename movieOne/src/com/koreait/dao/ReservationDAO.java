@@ -40,6 +40,9 @@ public class ReservationDAO {
 	 * 
 	 * 회원 번호(memNum)에 해당하는 예매 내역을 조회한다.
 	 * 예매/회원/영화 테이블을 JOIN하여 영화 제목, 상영관, 예매일/상영일, 예매번호를 함께 반환한다.
+	 * 
+	 * 예매 상태를 조회하는 selectRes() 메소드에서 사용 (Controller)
+	 * 예매를 취소하는 cancelRes() 메소드에서 사용 (Controller)
 	 */
 	public List<JoinDTO> reservationInfo(int memNum) {
 
@@ -129,6 +132,9 @@ public class ReservationDAO {
 	 * 매개변수로 ReservationDTO의 정보를 사용한다
 	 * @param dto
 	 * @return boolean
+	 * 
+	 * 예약을 하는 movieRes() 메소드에서 사용 (Controller) 
+	 * 
 	 */
 	public boolean reservation(ReservationDTO dto) {
 
@@ -159,6 +165,7 @@ public class ReservationDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("reservation 오류 ");
 		} finally {
 //		DBMS와 연결을 다시 닫는다 
 			try {
