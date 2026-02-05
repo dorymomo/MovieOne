@@ -28,7 +28,7 @@ public class MemberDAO {
 	
 	public boolean checkID(String memId) {
 		 // 문자열로 쿼리문 작성한다
-		 String query = "SELECT mem_num FROM TBL_member WHERE member_ID = ?";
+		 String query = "SELECT mem_num FROM TBL_member WHERE MEM_ID = ?";
 		 
 		// DB와 연결을 하기위한 코드입니다.
 		 try {
