@@ -50,7 +50,7 @@ public class ReservationDAO {
 				+ "JOIN tbl_movie tmv ON tr.MV_NUM = tmv.MV_NUM " + "WHERE tr.MEM_NUM = ?";
 
 	
-//	 	joinDTO리스트의 객체를 생성한다 
+//	 	JoinDTO리스트의 객체를 생성한다 
 		List<JoinDTO> list = new ArrayList<>();
 
 	
@@ -78,12 +78,12 @@ public class ReservationDAO {
 			while (resultSet.next()) {
 
 
-//	 	joinDTO의 객체를 생성한다 
+//	 	JoinDTO의 객체를 생성한다 
 
 				JoinDTO dto = new JoinDTO();
 
 
-//	  	joinDTO의 객체를 이용하여 해당값들의 결과를 입력한다 
+//	  	JoinDTO의 객체를 이용하여 해당값들의 결과를 입력한다 
 
 				dto.setMvTitle(resultSet.getString(1));
 				dto.setMemNum(resultSet.getInt(2));
