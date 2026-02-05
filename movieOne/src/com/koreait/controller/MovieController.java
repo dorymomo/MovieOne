@@ -85,10 +85,14 @@ public class MovieController {
 					break;
 				case 4:
 					// 회원탈퇴
-					deleteMember();
+					boolean flag = deleteMember();
+					// 회원 탈퇴 성공 시 이전 메뉴로 돌아간다.
+					if (flag == true) {
+						return;
+					}
 					break;
 				case 0:
-					//로그아웃
+					// 로그아웃
 					logout();
 					return;
 				default:
@@ -97,9 +101,9 @@ public class MovieController {
 			} catch (NumberFormatException e) {
 				view.msg("숫자를 입력해주세요");
 				continue;
-			}
-			catch(Exception e) {
+			} catch (Exception e) {
 				view.msg("checkMenu() 알 수 없는 오류 발생");
+
 			}
 		}
 	}
@@ -263,18 +267,19 @@ public class MovieController {
 	 * 회원 탈퇴
 	 * 회원 탈퇴를 진행
 	 */
-	private void deleteMember() {
+	private boolean deleteMember() {
 		int ch = view.deleteAccount();
 		if(ch==1) {
 			memDAO.signOutMember(loginUser.getMemNum());
 			view.msg("회원탈퇴 성공");
 			loginUser = null;
-			run();
+			return true;
 		}if(ch==2) {
 			view.msg("회원탈퇴 안함");
 		}else {
 			view.msg("번호 잘못 입력");
 		}
+		return false;
 	}
 	
 	/**
