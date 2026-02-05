@@ -24,7 +24,7 @@ public class MovieDTO {
 	private String mvGenre;
 	private int mvPrice;
 	private String mvLocation;
-	
+
 	
 	
 	public int getMvNum() {
