@@ -1,11 +1,12 @@
 package com.koreait.view;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.koreait.dto.JoinDTO;
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
-import com.koreait.dto.JoinDTO;
 
 public class MovieView {
 
@@ -16,13 +17,21 @@ public class MovieView {
 //	예매 dto : 태우 장르 조회, 영화 추가 - 준승 영화조회, 영화삭제
 
 	public int loginMenu() {
-		System.out.println("안녕하세요!");
-		System.out.println("1. 로그인하기");
-		System.out.println("2. 회원가입하기");
+		try {
+			System.out.println("안녕하세요!");
+			System.out.println("1. 로그인하기");
+			System.out.println("2. 회원가입하기");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
+			int choice = sc.nextInt();
+			sc.nextLine();
+			return choice;
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 종료합니다.");
+			return 0;
+		} catch (Exception e) {
+			System.out.println("loginMenu() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
 
 	public String inputId() {
@@ -58,31 +67,47 @@ public class MovieView {
 //	----------------------------------------------
 	
 	public int mainMenu() {
-		System.out.println("----메뉴선택----");
-		System.out.println("1. 영화");
-		System.out.println("2. 예매");
-		System.out.println("3. 회원 정보 수정");
-		System.out.println("4. 회원탈퇴");
-		System.out.println("0. 종료");
-		System.out.println("선택 : ");
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
+		try {
+			System.out.println("----메뉴선택----");
+			System.out.println("1. 영화");
+			System.out.println("2. 예매");
+			System.out.println("3. 회원 정보 수정");
+			System.out.println("4. 회원탈퇴");
+			System.out.println("0. 종료");
+			System.out.println("선택 : ");
+			int choice = sc.nextInt();
+			sc.nextLine();
+			return choice;
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return 0;
+		} catch (Exception e) {
+			System.out.println("mainMenu() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
 
 //	-----------------------------------------------
 	
 	public int movieMenu() { // 1. 영화 메뉴
-		System.out.println("----영화 메뉴----");
-		System.out.println("1. 전체 영화 보기");
-		System.out.println("2. 영화 장르로 찾기");
-		System.out.println("3. 영화 추가");
-		System.out.println("4. 영화 삭제");
-		System.out.println("0. 종료");
+		try {
+			System.out.println("----영화 메뉴----");
+			System.out.println("1. 전체 영화 보기");
+			System.out.println("2. 영화 장르로 찾기");
+			System.out.println("3. 영화 추가");
+			System.out.println("4. 영화 삭제");
+			System.out.println("0. 종료");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
+			int choice = sc.nextInt();
+			sc.nextLine();
+			return choice;
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return 0;
+		} catch (Exception e) {
+			System.out.println("movieMenu() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
 
 	public void showMovieList(List<MovieDTO> list) { // 1-1. 전체 영화 보기
@@ -123,7 +148,7 @@ public class MovieView {
 
 	public MovieDTO addMovie() { // 1-3. 영화 추가하기
 		MovieDTO m = new MovieDTO();
-		
+		try {
 		System.out.print("추가할 영화의 제목을 입력해주세요 : ");
 		m.setMvTitle(sc.nextLine());
 		System.out.print("추가할 영화의 장르를 입력해주세요 : ");
@@ -135,6 +160,15 @@ public class MovieView {
 		m.setMvLocation(sc.nextLine());
 		
 		return m;
+		}
+		catch(InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return null;
+		}
+		catch(Exception e) {
+			System.out.println("mainMenu() 알 수 없는 오류 발생");
+			return null;
+		}
 	}
 
 	public String deleteMovie() { // 1-4. 영화 삭제하기
@@ -150,19 +184,25 @@ public class MovieView {
 //	-------------------------------------
 
 	public int showResvMenu() { // 2. 예매 메뉴
-		System.out.println("----예매 메뉴----");
-		System.out.println("1. 예매하기");
-		System.out.println("2. 내 예매 내역");
-		System.out.println("3. 예매 수정");
-		System.out.println("4. 예매 취소");
-		System.out.println("0. 종료");
+		try {
+			System.out.println("----예매 메뉴----");
+			System.out.println("1. 예매하기");
+			System.out.println("2. 내 예매 내역");
+			System.out.println("3. 예매 수정");
+			System.out.println("4. 예매 취소");
+			System.out.println("0. 종료");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
-
+			int choice = sc.nextInt();
+			sc.nextLine();
+			return choice;
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return 0;
+		} catch (Exception e) {
+			System.out.println("mainMenu() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
-	
 	
 	
 	
@@ -220,10 +260,7 @@ public class MovieView {
 
 
 	public String selectDate(String str) { // 상영하고 싶은 날짜 선택
-
-		
 		System.out.print(str);
-		 
 		return sc.nextLine();
 	}
 	
@@ -301,13 +338,23 @@ public int cancelReservationByStream(List<JoinDTO> list) {
 		if(list.isEmpty()) {
 			System.out.println("예매 내역이 없습니다!");
 		}
-
+		try
+		{
 		System.out.println("취소하고 싶은 예매번호를 입력해주세요");
 		int select = sc.nextInt();
 		sc.nextLine();
 		
 		JoinDTO selectedDTO = list.stream().filter(x->x.getRevNum() == select).findFirst().orElse(null); 
 		return selectedDTO == null ? 0 : selectedDTO.getRevNum();
+		}
+		catch(InputMismatchException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return 0;
+		}
+		catch(Exception e) {
+			System.out.println("mainMenu() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
 	
 	
@@ -329,13 +376,21 @@ public int cancelReservationByStream(List<JoinDTO> list) {
 	
 	public int deleteAccount() { // 4. 회원 탈퇴하기
 
-		System.out.println("정말로 삭제하시겠습니까?");
-		System.out.println("1. 네");
-		System.out.println("2. 아니오");
+		try {
+			System.out.println("정말로 삭제하시겠습니까?");
+			System.out.println("1. 네");
+			System.out.println("2. 아니오");
 
-		int choice = sc.nextInt();
-		sc.nextLine();
-		return choice;
+			int choice = sc.nextInt();
+			sc.nextLine();
+			return choice;
+		} catch (NumberFormatException e) {
+			System.out.println("잘못된 숫자를 입력하셨습니다 이전 메뉴로 이동합니다.");
+			return 0;
+		} catch (Exception e) {
+			System.out.println("deleteAccount() 알 수 없는 오류 발생");
+			return 0;
+		}
 	}
 	
 	//	----------------------------------------------------

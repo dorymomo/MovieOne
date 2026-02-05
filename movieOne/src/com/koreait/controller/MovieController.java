@@ -1,15 +1,16 @@
 package com.koreait.controller;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
 import com.koreait.dao.MemberDAO;
 import com.koreait.dao.MovieDAO;
 import com.koreait.dao.ReservationDAO;
+import com.koreait.dto.JoinDTO;
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
 import com.koreait.dto.ReservationDTO;
-import com.koreait.dto.JoinDTO;
 import com.koreait.view.MovieView;
 
 /**
@@ -295,7 +296,6 @@ public class MovieController {
 		// 예매 DTO 값 대입
 		newReservation.setMemNum(this.loginUser.getMemNum());
 		newReservation.setMvNum(movieDto.getMvNum());
-		newReservation.setRevRegDate(LocalDate.now().toString());
 		newReservation.setRevShowDate(view.selectDate("상영하고 싶은 날짜를 선택해주세요 : "));
 		// 예매 테이블에 insert
 		boolean result = resDAO.reservation(newReservation);
