@@ -159,6 +159,7 @@ public class MovieController {
 	private void login() {
 		String id = view.inputId();
 		String pw = view.inputPw();
+		
 		MemberDTO user = memDAO.login(id, pw);
 		if (user != null) {
 			loginUser = user;
@@ -219,10 +220,11 @@ public class MovieController {
 	 */
 	private void updateMember() {
 		MemberDTO dto = view.userChange();
-		dto.setMemNum(loginUser.getMemNum());
-		boolean result = memDAO.changeEmailAndPhoneNo(dto);
-
-		view.msg(result ? "회원수정 성공" : "회원수정 실패");
+		if(dto!=null) {
+			dto.setMemNum(loginUser.getMemNum());
+			boolean result = memDAO.changeEmailAndPhoneNo(dto);
+			view.msg(result ? "회원수정 성공" : "회원수정 실패");
+		}
 	}
 
 	/**
@@ -230,10 +232,19 @@ public class MovieController {
 	 * 회원 탈퇴를 진행
 	 */
 	private void deleteMember() {
-		view.deleteAccount();
-		boolean result = memDAO.signOutMember(loginUser.getMemNum());
-		view.msg(result ? "회원탈퇴 성공" : "회원탈퇴 실패");
+		int ch = view.deleteAccount();
+		if(ch==1) {
+			memDAO.signOutMember(loginUser.getMemNum());
+			view.msg("회원탈퇴 성공");
+			loginUser = null;
+			run();
+		}if(ch==2) {
+			view.msg("회원탈퇴 안함");
+		}else {
+			view.msg("번호 잘못 입력");
+		}
 	}
+	
 	/**
 	 * 영화 조회
 	 * 현재 상영하는 영화 목록을 출력
@@ -255,15 +266,20 @@ public class MovieController {
 	 */
 	private void addMovie() {
 		MovieDTO dto = view.addMovie();
-		boolean result = mvDAO.mvInsert(dto);
-		view.msg(result ? "영화추가 성공" : "영화추가 실패");
+		if(dto !=null) {
+			boolean result = mvDAO.mvInsert(dto);
+			view.msg(result ? "영화추가 성공" : "영화추가 실패");
+		}
 	}
 	/**
 	 * 영화 목록에서 영화 삭제 
 	 */
 	private void deleteMovie() {
-		boolean result = mvDAO.movieDelete(view.deleteMovie());
-		view.msg(result ? "영화삭제 성공" : "영화삭제 실패");
+		String ck = view.deleteMovie();
+		if(ck!=null) {
+			boolean result = mvDAO.movieDelete(ck);
+			view.msg(result ? "영화삭제 성공" : "영화삭제 실패");
+		}
 	}
 	/**
 	 * 예매 상태를 조회
@@ -316,11 +332,16 @@ public class MovieController {
 	 */
 	private void updateRes() {
 		ReservationDTO dto = new ReservationDTO();
-		dto.setRevNum(view.editReservation());
-		dto.setMemNum(loginUser.getMemNum());
-		dto.setRevShowDate(view.selectDate("변경하실 날짜를 입력해주세요. :"));
-		boolean result = resDAO.updateShowDate(dto);
-		view.msg(result ? "예매수정 성공" : "예매수정 실패");
+		int num =view.editReservation();
+		String da =view.selectDate("변경하실 날짜를 입력해주세요. :");
+		if(num != 0 && da!=null) {
+			dto.setRevNum(num);
+			dto.setMemNum(loginUser.getMemNum());
+			dto.setRevShowDate(da);
+			boolean result = resDAO.updateShowDate(dto);
+			view.msg(result ? "예매수정 성공" : "예매수정 실패");
+		}
+		
 	}
 
 }
