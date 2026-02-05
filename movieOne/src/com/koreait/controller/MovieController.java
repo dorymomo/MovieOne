@@ -1,7 +1,5 @@
 package com.koreait.controller;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 import com.koreait.dao.MemberDAO;

@@ -8,7 +8,6 @@ import com.koreait.dto.JoinDTO;
 import com.koreait.dto.MemberDTO;
 import com.koreait.dto.MovieDTO;
 
-import com.koreait.dto.JoinDTO;
 /**
  * @author Administrator
  * @since
